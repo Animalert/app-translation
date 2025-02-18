@@ -1,0 +1,66 @@
+name: Run translationSummary from comment
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  comment-in-pr:
+
+    if: ${{ github.event.issue.pull_request }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      repository-projects: write
+      id-token: write
+
+    steps:
+
+      - name: 🔍 Checkout PR code
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: 🏗️ Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Install TypeScript & tsx
+        run: npm install -g typescript tsx
+
+      - name: 🚀 Process command on comment on PR
+        uses: actions/github-script@v6
+        with:
+          script: |
+            if (!context.payload.issue.pull_request) {
+              console.log("Not a PR comment.");
+              return ;
+            }
+            const commentBody = context.payload.comment.body;
+            const actor = context.actor;
+            const commandPrefix = "/trSum ";
+
+            if (!commentBody.startsWith(commandPrefix)) {
+              console.log("Not a valid command.");
+              return;
+            }
+
+            const translation = commentBody.substring(commandPrefix.length).trim();
+
+            if (actor !== "wneel") {
+              console.log(`Non authorized user: ${actor}.`);
+              return;
+            }
+
+            const { execSync } = require("child_process");
+            const comment = execSync(`npx tsx ./commands/translationSummary.ts ${translation}`).toString().trim();
+
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment,
+            });
+            console.log("Command executed successfully !");
