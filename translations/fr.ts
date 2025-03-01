@@ -32,6 +32,7 @@ export const fr = {
 		},
 		Screen: {
 			Title: "Animalert Radar",
+			LoadingPosition: "Chargement de la position...",
 			NoLostPetsAround: "Aucun animal perdu à proximité !",
 			ErrorSearchingPets: "Une erreur est survenue lors de la recherche des animaux perdus à proximité.",
 			TryAgain: "réessayer ?",
@@ -111,7 +112,15 @@ export const fr = {
 		SeeLostPet: {
 			Edit: "Modifier",
 			InformationsAbout: (petName: string) => `Informations concernant ${petName}:`,
+			TestReportMessage: "Attention ceci est une annonce de test, cet animal n'est pas réellement en danger.",
 			lostedDate: "Perdu ",
+			FeedbackTitles: {
+				why_denied: "Motif du refus",
+				why_blocked: "Motif du bloquage",
+				improvements: "Améliorations possibles",
+				message: "Message d'Animalert",
+				testing: "Annonce bêta"
+			},
 			Categories: {
 				keys: {
 					specie: "espèce",
@@ -119,7 +128,9 @@ export const fr = {
 					age: "âge",
 					gender: "sexe",
 					castratedSterilized: "castré/stérilisé",
-					microship: "puce éléctronique"
+					microship: "puce éléctronique",
+					is_testing: "Est-ce une annonce de test ?",
+					is_owner: "Êtes-vous le propriétaire de l'animal ?"
 				},
 				values: {
 					species: (specie: string) => {
@@ -189,8 +200,9 @@ export const fr = {
 				"invalid-verification-code": "Le code de vérification est invalide, veuillez réessayer.",
 				"code-expired": "Le code de vérification à expiré, veuillez recommencer.",
 				"missing-client-identifier": "Nous n'arrivons pas à valider l'intégrité de votre appareil, veuillez relancer l'application ou nous contacter.",
-				"popup-closed-by-user": "Le captcha à été annulé, veuillez rééssayer"
-			},
+				"popup-closed-by-user": "Le captcha à été annulé, veuillez rééssayer",
+				"user-disabled": "Vous êtes banni de l'association Animalert et de ses différents services."
+			}
 		},
 		Settings: {
 			AppSettings: {
@@ -230,14 +242,22 @@ export const fr = {
 				NotificationsScreen: {
 					title: "Notifications",
 					OverScrollText: "Activez les toutes !",
-					IntroDescription: "Personnalisez vos choix de notifications,\n\npromis on enverra que le nécessaire 😉",
+					IntroDescription: "Personnalisez vos choix de notifications, promis on enverra que le nécessaire 😉",
+					GoToHistory: "Notifications reçues précedemment",
 					RingTypes: {
 						LostPet: "🐶 perdu à proximité !",
 						HurtPet:  "🐱 blessé à proximité !",
 						OwnAdsUpdate: "Votre annonce à été publiée !",
 						News: "Nouvelle version disponible !",
-						Funding: "Lancement d'une collecte de dons !"
+						Funding: "Lancement d'une collecte de dons !",
+						Testing: "🧪 - 🐶 perdu à proximité ! (notifications de tests bêta)"
 					}
+				},
+				NotificationHistoryScreen: {
+					title: "Notifications reçues",
+					OverScrollText: "jamais de spam :)",
+					NoNotifHistory: "Aucune notification reçue",
+					SendAt: (date: string) => `Envoyée le ${date} à `
 				},
 				LanguageScreen: {
 					title: "Langue",

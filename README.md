@@ -10,9 +10,10 @@ This repository contains all the translations for the Animalert app. Our goal is
 
 With the help of the community, we can:
 
-✅ Translate the app into multiple languages
-✅ Detect and fix potential errors or inconsistencies
-✅ Ensure maximum accessibility for everyone
+- ✅ Translate the app into multiple languages
+- ✅ Detect and fix potential errors or inconsistencies
+- ✅ Ensure maximum accessibility for everyone
+
 We welcome all contributions, but it is essential to follow our contribution guidelines.
 
 ## 🌍 Main Language & Available Translations
@@ -48,7 +49,7 @@ We need your help to make Animalert accessible to as many people as possible! �
 
 📖 Check out the **[contribution guide](CONTRIBUTING.md)** to learn more.
 
-💬 If you have any questions, feel free to open an [issue](https://github.com/Animalert/app-translation/issues)**.
+💬 If you have any questions, feel free to open an **[issue](https://github.com/Animalert/app-translation/issues)**.
 
 Thank you for your support! ❤️
 

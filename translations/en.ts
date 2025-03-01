@@ -32,6 +32,7 @@ export const en = {
 		},
 		Screen: {
 			Title: "Animalert Map",
+			LoadingPosition: "Loading position...",
 			NoLostPetsAround: "No lost animals nearby !",
 			ErrorSearchingPets: "An error occurred when searching for animals lost in the area.",
 			TryAgain: "try again ?",
@@ -111,7 +112,15 @@ export const en = {
 		SeeLostPet: {
 			Edit: "Edit",
 			InformationsAbout: (petName: string) => `Information about ${petName}:`,
+			TestReportMessage: "Please note that this is a test report; this pet is not really in danger.",
 			lostedDate: "Lost ",
+			FeedbackTitles: {
+				why_denied: "Reason for rejection",
+				why_blocked: "Reason for blocking",
+				improvements: "Possible improvements",
+				message: "Animalert's message",
+				testing: "Beta report"
+			},
 			Categories: {
 				keys: {
 					specie: "specie",
@@ -119,7 +128,9 @@ export const en = {
 					age: "age",
 					gender: "gender",
 					castratedSterilized: "castrated/sterilized",
-					microship: "microship"
+					microship: "microship",
+					is_testing: "Is this a test report?",
+					is_owner: "Are you the pet owner?"
 				},
 				values: {
 					species: (specie: string) => {
@@ -189,7 +200,8 @@ export const en = {
 				"invalid-verification-code": "The verification code is invalid, please try again.",
 				"code-expired": "The verification code has expired, please try again.",
 				"missing-client-identifier": "We are unable to validate the integrity of your device, please restart the app or contact us.",
-				"popup-closed-by-user": "The captcha was cancelled, please retry"
+				"popup-closed-by-user": "The captcha was cancelled, please retry",
+				"user-disabled": "You are banned from the Animalert organisation and all of its features."
 			},
 		},
 		Settings: {
@@ -230,14 +242,22 @@ export const en = {
 				NotificationsScreen: {
 					title: "Notifications",
 					OverScrollText: "Tick them all!",
-					IntroDescription: "Customise your notification options,\n\nwe'll only send what's necessary 😉",
+					IntroDescription: "Customise your notification options, we'll only send what's necessary 😉",
+					GoToHistory: "Previously received notifications",
 					RingTypes: {
 						LostPet: "lost 🐶 nearby!",
 						HurtPet:  "injured 🐱 nearby!",
 						OwnAdsUpdate: "Your report has been published!",
 						News: "New version now available!",
-						Funding: "Launch of a fund-raising campaign!"
+						Funding: "Launch of a fund-raising campaign!",
+						Testing: "🧪 - lost 🐶 nearby! (beta test notifications)"
 					}
+				},
+				NotificationHistoryScreen: {
+					title: "Past notifications",
+					OverScrollText: "we never spam :)",
+					NoNotifHistory: "No notification received",
+					SendAt: (date: string) => `Sent on ${date} at `
 				},
 				LanguageScreen: {
 					title: "Language",
