@@ -25,10 +25,12 @@ translations/
 ## ✍️ Translation Guidelines
 
 - ✔ **Keep the keys unchanged**; only translate the values.
+- ✔ **Keep the keys in the same order**; thank you for understanding.
 - ✔ **Keep the functions parameters unchanged**; only translate the values.
 - ✔ **Maintain spaces and punctuation**: if a source string ends with a space ("foo "), **the space must be preserved**. If you think it’s a mistake, open an issue.
 - ✔ **Use the same tone and register** as the French version.
 - ✔ **Preserve wordplays and nuances** as much as possible. If an adaptation is needed, add a comment in the file to explain the change.
+- ✔ **Feel free to use inclusive writing** 🧡
 
 ## 🔄 How to Contribute?
 
