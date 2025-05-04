@@ -1,3 +1,7 @@
+import { pet_status } from "../types/enums";
+import { userPlace } from "../types/types";
+import { getEmoji } from "../utils/utils";
+
 export const en = {
 	AppNavigation: {
 		ScreensTitles: {
@@ -31,16 +35,14 @@ export const en = {
 			GoToSettings: "Go to settings"
 		},
 		Screen: {
-			Title: "Animalert Map",
 			LoadingPosition: "Loading position...",
+			LoadingLostsPets: "Searching for lost pets around you...",
 			NoLostPetsAround: "No lost animals nearby !",
 			ErrorSearchingPets: "An error occurred when searching for animals lost in the area.",
 			TryAgain: "try again ?",
-			AnyAnimalAround: (petsInRadius: any[]) => {
-				return (`${petsInRadius.length == 0 ? "No" : petsInRadius.length} ${(petsInRadius.length > 1) ? "pets" : "pets"} around`)
+			AnyAnimalAround: (petsInRadius: number) => {
+				return (`${petsInRadius == 0 ? "No" : petsInRadius} ${(petsInRadius > 1) ? "pets" : "pets"} around`)
 			},
-			NotifyAnimalAroundTitle: (_is_male: boolean) => `lost nearby!`,
-			NotifyAnimalAroundBody: (pet: {name: string; is_male: boolean;}) => `${pet.name} was reported lost near you, keep an eye out!`,
 			NearToYou: "Near you"
 		},
 		AddLostPet: {
@@ -107,9 +109,14 @@ export const en = {
 					title: "Specie",
 					content: "You must indicate the type of your pet."
 				}
+			},
+			ImageSizeError: {
+				title: "Image too big",
+				message: (image_index: number) => `Your ${image_index}${ image_index == 1 ? "st" : image_index == 2 ? "nd" : image_index == 3 ? "rd" : "th"} image is too big, please compress it or choose another photo.`
 			}
 		},
 		SeeLostPet: {
+			LoadingPet: "Loading the report...",
 			Edit: "Edit",
 			InformationsAbout: (petName: string) => `Information about ${petName}:`,
 			TestReportMessage: "Please note that this is a test report; this pet is not really in danger.",
@@ -120,6 +127,14 @@ export const en = {
 				improvements: "Possible improvements",
 				message: "Animalert's message",
 				testing: "Beta report"
+			},
+			StatusMessages: {
+				[pet_status.APPROVED]: (pet_name: string) => `${pet_name}'s report is online, and users can view it in the application`,
+				[pet_status.FOUND]: (pet_name: string) => `${pet_name}'s report is no longer visible on the map, users that saved it will be notified of the reunion`,
+				[pet_status.WAITING_APPROVAL]: (pet_name: string) => `${pet_name}'s report will be published as soon as it has been approved by a moderator.`,
+				updated: (pet_name: string) => `${pet_name}'s report is online. Your updates will be published as soon as a moderator has approved them.`,
+				[pet_status.DELETED]: (pet_name: string) => `${pet_name}'s report has been removed, so you're the only one who can see it.`,
+				[pet_status.DENIED]: (pet_name: string) => `${pet_name}'s report has been rejected, so you're the only one who can see it`
 			},
 			Categories: {
 				keys: {
@@ -143,11 +158,14 @@ export const en = {
 								return (specie);
 						}
 					},
-					age: (age: number) => `${age} years old`,
+					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "years" : "months"} old`,
 					genderMale: "male",
 					genderFemale: "female",
 				}
 			},
+			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `We'll let you know when ${pet_name} is found`,
+			NotifyMe: (pet_name: string, _is_male: boolean) => `Notify me when ${pet_name} is found`,
+			IFoundPet: (pet_name: string) => `I recovered ${pet_name}`,
 			EditModeWindowitle: "Preview my report"
 		}
 	},
@@ -166,7 +184,7 @@ export const en = {
 			SettingsBottomVersion: "beta release",
 			LoadingMessage: "Loading your reports...",
 			NoAdsMessage: "No report online",
-			PublishReport: "publish a report",
+			PublishReport: "Publish a report",
 			ProfileSettings: "settings",
 			EditPlace: {
 				WindowTitle: "Edit a place",
@@ -207,6 +225,7 @@ export const en = {
 		Settings: {
 			AppSettings: {
 				Blocs: {
+					savedReports: "Saved reports",
 					lang: "Language",
 					langEmoji: "🇬🇧",
 					notif: "Notifications",
@@ -217,7 +236,6 @@ export const en = {
 					thanks: "Acknowledgements"
 				},
 				WriteUsScreen: {
-					title: "Write us",
 					OverScrollText: "Thanks in advance for your message 😻",
 					IntroTitle: "Would you like to contact us?",
 					IntroDescription: "Question, feedback, interview or just pure curiosity? You've come to the right place!\n\nIf you'd like us to get back to you, please leave your contact details.\nWe'll try to get back to you as soon as possible 😉",
@@ -238,6 +256,14 @@ export const en = {
 						rateLimitMessage: "You've sent a lot of messages recently, so once we've read them all you can send new ones!",
 						defaultMessage: "Your message could not be sent for a reason we do not know. If the problem persists, please do not hesitate to contact us by e-mail: contact@animalert.app !"
 					}
+				},
+				BugReportScreen: {
+					OverScrollText: "It'll be fixed in the next version",
+					IntroTitle: "You found a bug?",
+					IntroDescription: "You've come to the right place to report it!\n\nIf possible, please attach a screenshot of your problem.\n\nPlease also take a screenshot of the information below to help us fix the problem :)",
+					ContactText: "Choose the contact method that suits you best:",
+					Mail: "mail",
+					Thanks: "We'd like to thank you in advance for your feedback, which will help us to improve the application on a continual basis"
 				},
 				NotificationsScreen: {
 					title: "Notifications",
@@ -267,8 +293,56 @@ export const en = {
 					EmptyResultText: "No results found.\n\nIf the language you're looking for isn't available, don't hesitate to contribute!",
 					HelpTranslation: "Help us translate!",
 				},
+				SavedReportsScreen: {
+					loadingSavedReports: "loading saved reports...",
+					overScrollText: "Please don't forget them, they're relying on you, and so are we",
+					title: "Find your saved reports here",
+					reportsNotification: "if any of them are found, you will be notified.",
+					reportsAccess: "you can have access to these reports at any time.",
+					noSavedReport: "No reports saved at the moment."
+				},
 			}
 		}
+	},
+	Notifications: {
+		AppUpdate: {
+			title: "New version now available!",
+			body: (version: string) => `Update the application to enjoy version ${version}!`
+		},
+		LostPetFound: {
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} recovered !`,
+			body: (pet_name: string, _is_male: boolean) => `${pet_name} was reunited with her owners today :)`
+		},
+		PetLostAround: {
+			title: (_specie: string, _is_male: boolean) => `lost nearby!`,
+			body: (pet_name: string, _is_male: boolean) => `${pet_name} was reported lost near you, keep an eye out!`,
+		},
+		NewPetReport: {
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} reported lost!`,
+			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} has been reported lost near ${
+				placeID == "user" ? "you" : `${place_name}`
+			}${placeID == "user" ? ", keep an eye out" : ""} !`
+		},
+		ReportDenied: {
+			title: "Report denied by a moderator!",
+			body: (pet_name: string) => `The report on ${pet_name}'s loss was rejected.`
+		},
+		ReportApproved: {
+			title: "Your report has been published!",
+			body: (pet_name: string, is_male: boolean) => `All users in the area around ${pet_name} will be notified of ${is_male ? "his" : "her"} loss!`,
+		}
+	},
+	Popup: {
+		UpdateAvailable: {
+			title: "New version available",
+			description: "You must update Animalert to continue!",
+			buttonText: "update!",
+		},
+		WelcomeToVersion: {
+			title: "New version",
+			description: (version_name: string) => `Welcome to version ${version_name} of Animalert!`,
+			buttonText: "See what's new!",
+		},
 	},
 	Commons: {
 		Ok: "Ok",
@@ -280,7 +354,11 @@ export const en = {
 		Close: "Close",
 		ErrorOccuredPeaseRetry: "An error occured, please retry.",
 		CantLoadImage: "the image could not be loaded",
-		PleaseWait: "please wait"
+		PleaseWait: "please wait",
+		Now: "now",
+		TimeAgo: (time_amount: string) => `${time_amount} ago`,
+		Day: "day",
+		Days: "days"
 	},
 	data: {
 		name: "English",

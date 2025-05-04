@@ -1,3 +1,7 @@
+import { pet_status } from "../types/enums";
+import { userPlace } from "../types/types";
+import { getEmoji } from "../utils/utils";
+
 export const fr = {
 	AppNavigation: {
 		ScreensTitles: {
@@ -31,16 +35,14 @@ export const fr = {
 			GoToSettings: "Paramètres"
 		},
 		Screen: {
-			Title: "Animalert Radar",
 			LoadingPosition: "Chargement de la position...",
+			LoadingLostsPets: "Recherche d'animaux perdus autour de vous...",
 			NoLostPetsAround: "Aucun animal perdu à proximité !",
 			ErrorSearchingPets: "Une erreur est survenue lors de la recherche des animaux perdus à proximité.",
 			TryAgain: "réessayer ?",
-			AnyAnimalAround: (petsInRadius: any[]) => {
-				return (`${petsInRadius.length == 0 ? "Aucun" : petsInRadius.length} ${(petsInRadius.length > 1) ? "Animaux" : "Animal"} à proximité`)
+			AnyAnimalAround: (petsInRadius: number) => {
+				return (`${petsInRadius == 0 ? "Aucun" : petsInRadius} ${(petsInRadius > 1) ? "Animaux" : "Animal"} à proximité`)
 			},
-			NotifyAnimalAroundTitle: (is_male: boolean) => `perdu${is_male ? "" : "e"} à proximité !`,
-			NotifyAnimalAroundBody: (pet: {name: string; is_male: boolean;}) => `${pet.name} a été déclaré${pet.is_male ? "" : "e"} perdu${pet.is_male ? "" : "e"} à proximité de vous, ouvrez l'œil !`,
 			NearToYou: "Proche de vous"
 		},
 		AddLostPet: {
@@ -107,9 +109,14 @@ export const fr = {
 					title: "Espèce",
 					content: "Vous devez indiquer de quel type d'animal il s'agit."
 				}
+			},
+			ImageSizeError: {
+				title: "Image trop lourde",
+				message: (image_index: number) => `Votre ${image_index}${image_index == 1 ? "r" : ""}e image est trop lourde, veuillez la compresser ou choisir une autre photo.`
 			}
 		},
 		SeeLostPet: {
+			LoadingPet: "Chargement de l'annonce...",
 			Edit: "Modifier",
 			InformationsAbout: (petName: string) => `Informations concernant ${petName}:`,
 			TestReportMessage: "Attention ceci est une annonce de test, cet animal n'est pas réellement en danger.",
@@ -120,6 +127,14 @@ export const fr = {
 				improvements: "Améliorations possibles",
 				message: "Message d'Animalert",
 				testing: "Annonce bêta"
+			},
+			StatusMessages: {
+				[pet_status.APPROVED]: (pet_name: string) => `L'annonce de ${pet_name} est en ligne, les utilisateurs peuvent la voir dans l'application`,
+				[pet_status.FOUND]: (pet_name: string) => `L'annonce de ${pet_name} n'est plus visible sur la carte, les utilisateurs l'ayant enregistrée seront prévenus des retrouvailles`,
+				[pet_status.WAITING_APPROVAL]: (pet_name: string) => `L'annonce de ${pet_name} sera mise en public dès qu'un modérateur l'aura approuvée`,
+				updated: (pet_name: string) => `L'annonce de ${pet_name} est en ligne. Vos mises à jour seront mises en public dès qu'un modérateur les aura approuvées`,
+				[pet_status.DELETED]: (pet_name: string) => `L'annonce de ${pet_name} à été supprimée, vous êtes le seul à pouvoir la voir`,
+				[pet_status.DENIED]: (pet_name: string) => `L'annonce de ${pet_name} à été refusée, vous êtes le seul à pouvoir la voir`
 			},
 			Categories: {
 				keys: {
@@ -143,11 +158,14 @@ export const fr = {
 								return (specie);
 						}
 					},
-					age: (age: number) => `${age} ans`,
+					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "ans" : "mois"}`,
 					genderMale: "mâle",
 					genderFemale: "femelle",
 				}
 			},
+			YouWillBeNotified: (pet_name: string, is_male: boolean) => `Vous serez informé.e quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
+			NotifyMe: (pet_name: string, is_male: boolean) => `Me prévenir quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
+			IFoundPet: (pet_name: string) => `J'ai retrouvé.e ${pet_name}`,
 			EditModeWindowitle: "Aperçu de mon annonce"
 		}
 	},
@@ -166,7 +184,7 @@ export const fr = {
 			SettingsBottomVersion: "version bêta",
 			LoadingMessage: "Chargement de vos annonces...",
 			NoAdsMessage: "Aucune annonce publiée",
-			PublishReport: "publier une annonce",
+			PublishReport: "Publier une annonce",
 			ProfileSettings: "paramètres",
 			EditPlace: {
 				WindowTitle: "Éditer un lieu",
@@ -207,6 +225,7 @@ export const fr = {
 		Settings: {
 			AppSettings: {
 				Blocs: {
+					savedReports: "Annonces enregistrées",
 					lang: "Langue",
 					langEmoji: "🇫🇷",
 					notif: "Notifications",
@@ -217,7 +236,6 @@ export const fr = {
 					thanks: "Remerciements"
 				},
 				WriteUsScreen: {
-					title: "Nous écrire",
 					OverScrollText: "Merci d'avance pour votre message 😻",
 					IntroTitle: "Vous souhaitez nous contacter ?",
 					IntroDescription: "Question, feedback, interview ou par curiosité ? Vous êtes au bon endroit !\n\nSi vous souhaitez être recontactés, veillez à laisser vos coordonées.\nNous essairons de vous répondre dans les plus bref délais 😉",
@@ -238,6 +256,14 @@ export const fr = {
 						rateLimitMessage: "Vous avez envoyé beaucoup de messages récemment, une fois que nous les auront tous lus vous pourrez en envoyer à nouveau !",
 						defaultMessage: "Votre message n'a pas pu être envoyé pour une raison que nous ignorons, si le problème persiste n'hésitez pas à nous contacter par mail: contact@animalert.app !"
 					}
+				},
+				BugReportScreen: {
+					OverScrollText: "Ça sera réglé dans la prochaine version",
+					IntroTitle: "Vous avez trouvé un bug ?",
+					IntroDescription: "Vous êtes au bon endroit pour le signaler !\n\nSi c'est possible, n'hésitez pas à joindre une capture d'écran de votre problème.\n\nMerci de prendre également une capture d'écran des informations ci-dessous pour nous aider à régler le problème :)",
+					ContactText: "Choisissez le moyen de contact qui vous convient le mieux :",
+					Mail: "mail",
+					Thanks: "On vous remercie d'avance pour votre signalement, grâce à vos retours on peut améliorer l'application chaque jour"
 				},
 				NotificationsScreen: {
 					title: "Notifications",
@@ -267,8 +293,56 @@ export const fr = {
 					EmptyResultText: "Aucun résultat trouvé.\n\nSi la langue que vous cherchez n'est pas disponible, n'hésitez pas à contribuer !",
 					HelpTranslation: "Participer à la traduction !",
 				},
+				SavedReportsScreen: {
+					loadingSavedReports: "chargement des annonces...",
+					overScrollText: "Merci de ne pas les oublier, ils comptent sur toi, et nous aussi",
+					title: "Retrouvez ici vos annonces enregistrées",
+					reportsNotification: "si l'un d'entre eux est retrouvé, vous serez notifié.",
+					reportsAccess: "vous pouvez accéder à ces annonces à tout moment.",
+					noSavedReport: "aucune annonce sauvegardée pour le moment."
+				},
 			}
 		}
+	},
+	Notifications: {
+		AppUpdate: {
+			title: "Nouvelle version disponible !",
+			body: (version: string) => `Mettez l'application à jour pour bénéficier de la version ${version} !`
+		},
+		PetLostAround: {
+			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} perdu${is_male ? "" : "e"} à proximité !`,
+			body: (pet_name: string, is_male: boolean) => `${pet_name} a été déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} à proximité de vous, ouvrez l'œil !`
+		},
+		LostPetFound: {
+			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} retrouvé${is_male ? "" : "e"} !`,
+			body: (pet_name: string, is_male: boolean) => `${pet_name} a été retrouvé${is_male ? "" : "e"} aujourd'hui par ses propriétaires :)`
+		},
+		NewPetReport: {
+			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} !`,
+			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} à proximité de ${
+				placeID == "user" ? "vous" : `${place_name}`
+			}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
+		},
+		ReportDenied: {
+			title: "Annonce refusée par un modérateur !",
+			body: (pet_name: string) => `L'annonce concernant la disparition de ${pet_name} a été refusée.`
+		},
+		ReportApproved: {
+			title: "Votre annonce est en public !",
+			body: (pet_name: string, _is_male: boolean) => `Tout les utilisateurs se trouvant à proximité de ${pet_name} seront notifiés de sa disparition !`,
+		},
+	},
+	Popup: {
+		UpdateAvailable: {
+			title: "Nouvelle version disponible",
+			description: "Vous devez mettre à jour Animalert pour continuer !",
+			buttonText: "mettre à jour !",
+		},
+		WelcomeToVersion: {
+			title: "Nouvelle version",
+			description: (version_name: string) => `Bienvenue dans la version ${version_name} d'Animalert !`,
+			buttonText: "Découvrir les nouveautés !",
+		},
 	},
 	Commons: {
 		Ok: "Ok",
@@ -280,7 +354,11 @@ export const fr = {
 		Close: "Fermer",
 		ErrorOccuredPeaseRetry: "Une erreur est survenue, veuillez réessayer.",
 		CantLoadImage: "l'image n'a pu être chargée",
-		PleaseWait: "veuillez patienter"
+		PleaseWait: "veuillez patienter",
+		Now: "maintenant",
+		TimeAgo: (time_amount: string) => `il y a ${time_amount}`,
+		Day: "jour",
+		Days: "jours"
 	},
 	data: {
 		name: "Français",
