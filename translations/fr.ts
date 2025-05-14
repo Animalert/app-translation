@@ -18,7 +18,7 @@ export const fr = {
 				},
 				3: {
 					title: "Position expirée",
-					message: "Votre apareil n'est pas en mesure de nous fournir l'accès à votre position. Relancez l'application pour réessayer ou contactez le support si le problème persiste."
+					message: "Votre apareil n'est pas en mesure de nous fournir l'accès à votre position. Relancez l'application pour réessayer ou contactez le support si le problème persiste." // Coquille appareil
 				}
 			},
 			FallBackErrorTitle: "Erreur",
@@ -74,7 +74,7 @@ export const fr = {
 				Uploading: "Mise en ligne...",
 				AdUploaded: "Annonce publiée",
 				AdUploadingMessage: (petName: string, uploadPercentage: number) => `Progression de la mise en ligne de l'annonce de ${petName}: ${uploadPercentage}%.`,
-				AdUploadedMessage: (petName: string) =>`L'annonce signalant la disparition de de ${petName}`,
+				AdUploadedMessage: (petName: string) =>`L'annonce signalant la disparition de de ${petName}`, // Coquille de de
 				AdUploadedMessageEdit: "à bien été mise à jour.",
 				AdUploadedMessageNoEdit: "à bien été mise en ligne."
 			},
@@ -177,7 +177,7 @@ export const fr = {
 				WorkDefaultName: "Travail",
 				FavDefaultName: "Ajouter un lieu",
 				PermanentWarning: "Alertes permanentes",
-				AddPermanentWarningDescription: "Ajoutez les lieux que vous fréquentez régulièrement pour être informé en direct des signalement."
+				AddPermanentWarningDescription: "Ajoutez les lieux que vous fréquentez régulièrement pour être informé en direct des signalement." // (des signalements)
 			},
 		},
 		LoginRegister: {
