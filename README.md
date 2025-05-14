@@ -27,6 +27,7 @@ Verified (boolean): full proofreading for spelling and grammar accuracy.
 |--------|------------|----------|-------------|
 | 🇬🇧 English (source) | 100% | ❌ |  Reference language |
 | 🇫🇷 Français (source) | 100% | ❌ | Langue de référence |
+| 🇪🇸 Español | 100% | ❌ | Translated from french by @Dboire9 |
 
 
 > 📝 Want to improve a translation or add a new one? Check out the [CONTRIBUTING.md](./CONTRIBUTING.md) file to learn how to participate!
