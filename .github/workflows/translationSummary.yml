@@ -17,10 +17,33 @@ jobs:
 
     steps:
 
-      - name: 🔍 Checkout PR code
+      - name: 🔍 Get PR informations
+        uses: actions/github-script@v6
+        id: pr
+        with:
+          script: |
+            const prNumber = context.payload.issue.number;
+            const { data: pr } = await github.rest.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: prNumber,
+            });
+
+            console.log(`Repo: ${pr.head.repo.full_name}`);
+            console.log(`Ref: ${pr.head.ref}`);
+
+            return {
+              owner: pr.head.repo.owner.login,
+              repo: pr.head.repo.name,
+              ref: pr.head.ref,
+            };
+
+      - name: 🛎 Checkout the PR branch
         uses: actions/checkout@v4
         with:
-          ref: refs/pull/${{ github.event.issue.number }}/head
+          repository: ${{ fromJson(steps.pr.outputs.result).owner }}/${{ fromJson(steps.pr.outputs.result).repo }}
+          ref: ${{ fromJson(steps.pr.outputs.result).ref }}
+          fetch-depth: 0
 
       - name: 🏗️ Setup Node.js
         uses: actions/setup-node@v3
@@ -30,7 +53,13 @@ jobs:
       - name: 📦 Install TypeScript & tsx
         run: npm install -g typescript tsx
 
-      - name: 🚀 Process command on comment on PR
+      - name: 📥 Checkout main branch (dans ./main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main
+
+      - name: 🚀 Process command on PR comment
         uses: actions/github-script@v6
         with:
           script: |
@@ -55,7 +84,7 @@ jobs:
             }
 
             const { execSync } = require("child_process");
-            const comment = execSync(`npx tsx ./commands/translationSummary.ts ${translation}`).toString().trim();
+            const comment = execSync(`npx tsx ./main/commands/translationSummary.ts ${translation}`).toString().trim();
 
             await github.rest.issues.createComment({
               issue_number: context.issue.number,

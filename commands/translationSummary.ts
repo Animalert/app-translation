@@ -6,7 +6,7 @@ const baseLangID = "fr";
 
 async function getNewTranslation(newLangID: string) {
 	try {
-		const newLang = await import(`../translations/${newLangID}.ts`);
+		const newLang = await import(`../../translations/${newLangID}.ts`);
 		return (newLang);
 	} catch (error) {
 		return (null);
