@@ -18,7 +18,7 @@ export const fr = {
 				},
 				2: {
 					title: "Position indisponible",
-					message: "Animalert n'arrive pas à récuperer votre position. Relancez l'application pour réessayer ou contactez le support si le problème persiste."
+					message: "Animalert n'arrive pas à récupérer votre position. Relancez l'application pour réessayer ou contactez le support si le problème persiste."
 				},
 				3: {
 					title: "Position expirée",
@@ -39,18 +39,18 @@ export const fr = {
 			LoadingLostsPets: "Recherche d'animaux perdus autour de vous...",
 			NoLostPetsAround: "Aucun animal perdu à proximité !",
 			ErrorSearchingPets: "Une erreur est survenue lors de la recherche des animaux perdus à proximité.",
-			TryAgain: "réessayer ?",
+			TryAgain: "Réessayer ?",
 			AnyAnimalAround: (petsInRadius: number) => {
 				return (`${petsInRadius == 0 ? "Aucun" : petsInRadius} ${(petsInRadius > 1) ? "Animaux" : "Animal"} à proximité`)
 			},
 			NearToYou: "Proche de vous"
 		},
 		AddLostPet: {
-			AdUploadError: "Une erreur est survenue lors de la mise en ligne de l'annonce, veuillez rééssayer",
+			AdUploadError: "Une erreur est survenue lors de la mise en ligne de l'annonce, veuillez réessayer",
 			PetAddPpButton: "Choisissez une image",
 			PetNamePlaceholder: "Nom de votre animal",
 			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choisissez ${x}/${maxPics} photos de ${petName ? petName : "votre animal"}.`,
-			AddPicturesButton: "Add pictures",
+			AddPicturesButton: "Ajouter des photos",
 			PetDescriptionPlaceholder: "Description détaillée de votre animal...",
 			AddLostPlace: (petName: string) => `Ajouter le lieu de disparition de ${petName ? petName : "mon animal"}.`,
 			EditPlace: "Modifier le lieu",
@@ -59,15 +59,15 @@ export const fr = {
 			UpdateAd: "Mettre à jour",
 			Delete: "Supprimer",
 			AdDeleted: "Annonce supprimée",
-			AdDeletedSuccessfully: "L'annonce à bien été supprimée.",
-			AdDeleteError: "Une erreur est survenue lors de la suppression de l'annonce, veuillez rééssayer",
+			AdDeletedSuccessfully: "L'annonce a bien été supprimée.",
+			AdDeleteError: "Une erreur est survenue lors de la suppression de l'annonce, veuillez réessayer",
 			LostDate: "Date de disparition",
 			SpeciePlaceholder: "chat, chien",
 			AgePlaceholder: "4 ans",
 			SelectGalleryImages: {
-				NoLibrairyPermission: "Animalert de dispose pas de l'accès à votre gallerie, veuillez autoriser l'application pour continuer.",
-				UnknownError: "Animalert n'a pas réussi à accéder à la gallerie, veuillez réessayer, ou nous le signaler si le bug persiste.",
-				PermissionName: "Accès à la gallerie",
+				NoLibrairyPermission: "Animalert ne dispose pas de l'accès à votre galerie, veuillez autoriser l'application pour continuer.",
+				UnknownError: "Animalert n'a pas réussi à accéder à la galerie, veuillez réessayer, ou nous le signaler si le problème persiste.",
+				PermissionName: "Accès à la galerie",
 				GoToSettings: "Paramètres"
 			},
 			Popup: {
@@ -103,7 +103,7 @@ export const fr = {
 				},
 				age: {
 					title: "Âge",
-					content: "Vous devez indiquer l'âge de votre animal en années."
+					content: "Vous devez indiquer l'âge de votre animal."
 				},
 				type: {
 					title: "Espèce",
@@ -112,7 +112,7 @@ export const fr = {
 			},
 			ImageSizeError: {
 				title: "Image trop lourde",
-				message: (image_index: number) => `Votre ${image_index}${image_index == 1 ? "r" : ""}e image est trop lourde, veuillez la compresser ou choisir une autre photo.`
+				message: (image_index: number) => `Votre ${image_index}${image_index == 1 ? "èr" : ""}e image est trop lourde, veuillez la compresser ou choisir une autre photo.`
 			}
 		},
 		SeeLostPet: {
@@ -123,7 +123,7 @@ export const fr = {
 			lostedDate: "Perdu ",
 			FeedbackTitles: {
 				why_denied: "Motif du refus",
-				why_blocked: "Motif du bloquage",
+				why_blocked: "Motif du blocage",
 				improvements: "Améliorations possibles",
 				message: "Message d'Animalert",
 				testing: "Annonce bêta"
@@ -143,7 +143,7 @@ export const fr = {
 					age: "âge",
 					gender: "sexe",
 					castratedSterilized: "castré/stérilisé",
-					microship: "puce éléctronique",
+					microship: "puce électronique",
 					is_testing: "Est-ce une annonce de test ?",
 					is_owner: "Êtes-vous le propriétaire de l'animal ?"
 				},
@@ -195,7 +195,7 @@ export const fr = {
 				WorkDefaultName: "Travail",
 				FavDefaultName: "Ajouter un lieu",
 				PermanentWarning: "Alertes permanentes",
-				AddPermanentWarningDescription: "Ajoutez les lieux que vous fréquentez régulièrement pour être informé en direct des signalements."
+				AddPermanentWarningDescription: "Ajoutez les lieux que vous fréquentez régulièrement pour être informé en direct des signalement."
 			},
 		},
 		LoginRegister: {
@@ -218,7 +218,7 @@ export const fr = {
 				"invalid-verification-code": "Le code de vérification est invalide, veuillez réessayer.",
 				"code-expired": "Le code de vérification à expiré, veuillez recommencer.",
 				"missing-client-identifier": "Nous n'arrivons pas à valider l'intégrité de votre appareil, veuillez relancer l'application ou nous contacter.",
-				"popup-closed-by-user": "Le captcha à été annulé, veuillez rééssayer",
+				"popup-closed-by-user": "Le captcha à été annulé, veuillez réessayer",
 				"user-disabled": "Vous êtes banni de l'association Animalert et de ses différents services."
 			}
 		},
@@ -253,8 +253,8 @@ export const fr = {
 					},
 					ErrorState: {
 						title: "Une erreur est survenue",
-						rateLimitMessage: "Vous avez envoyé beaucoup de messages récemment, une fois que nous les auront tous lus vous pourrez en envoyer à nouveau !",
-						defaultMessage: "Votre message n'a pas pu être envoyé pour une raison que nous ignorons, si le problème persiste n'hésitez pas à nous contacter par mail: contact@animalert.app !"
+						rateLimitMessage: "Vous avez envoyé beaucoup de messages récemment, une fois que nous les aurons tous lus vous pourrez en envoyer à nouveau !",
+						defaultMessage: "Votre message n'a pas pu être envoyé pour une raison que nous ignorons, si le problème persiste, n'hésitez pas à nous contacter par mail: contact@animalert.app !"
 					}
 				},
 				BugReportScreen: {

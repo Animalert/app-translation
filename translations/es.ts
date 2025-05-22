@@ -50,7 +50,6 @@ export const es = {
 			PetAddPpButton: "Elige una imagen",
 			PetNamePlaceholder: "Nombre de su animal",
 			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Elige ${x}/${maxPics} fotos de ${petName ? petName : "su mascota"}.`,
-			AddPicturesButton: "Add pictures",
 			PetDescriptionPlaceholder: "Descripción detallada de su mascota...",
 			AddLostPlace: (petName: string) => `Añadir el lugar de desaparición de ${petName ? petName : "mi mascota"}.`,
 			EditPlace: "Cambiar el lugar",
@@ -120,7 +119,7 @@ export const es = {
 			Edit: "Cambiar",
 			InformationsAbout: (petName: string) => `Información sobre ${petName}:`,
 			TestReportMessage: "Cuidado, esto es un anuncio de prueba, esta mascota no está realmente en peligro.",
-			lostedDate: "Perdido ",
+			Lost: (plural: boolean, is_male: boolean) => `Perdid${is_male ? "o" : "a"}${plural ? "s" : ""} `,
 			FeedbackTitles: {
 				why_denied: "Motivo del rechazo",
 				why_blocked: "Motivo del bloqueo",
@@ -163,8 +162,8 @@ export const es = {
 					genderFemale: "hembra",
 				}
 			},
-			YouWillBeNotified: (pet_name: string, is_male: boolean) => `Usted será informado/a cuando se encuentre a ${pet_name} ${is_male ? "" : "e"}`,
-			NotifyMe: (pet_name: string, is_male: boolean) => `Avisarme cuando ${pet_name} sea encontrado ${is_male ? "" : "e"}`, // Mettre a et enleve le o
+			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `Usted será informado/a cuando se encuentre a ${pet_name}`,
+			NotifyMe: (pet_name: string, is_male: boolean) => `Avisarme cuando ${pet_name} sea encontrad${is_male ? "o" : "a"}`,
 			IFoundPet: (pet_name: string) => `He encontrado ${pet_name}`,
 			EditModeWindowitle: "Vista previa de mi anuncio"
 		}
@@ -310,16 +309,16 @@ export const es = {
 			body: (version: string) => `¡Actualiza la aplicación para beneficiarte de la versión ${version}!`
 		},
 		PetLostAround: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} perdido${is_male ? "" : "e"} cerca de aquí!`, // change pour a et enlever o 
-			body: (pet_name: string, is_male: boolean) => `¡${pet_name} ha sido declarado${is_male ? "" : "e"} perdido${is_male ? "" : "e"} cerca de aquí, ¡ojo!`
+			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} perdid${is_male ? "o" : "a"} cerca de aquí!`,
+			body: (pet_name: string, is_male: boolean) => `¡${pet_name} ha sido declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"} cerca de aquí, ¡ojo!`
 		},
 		LostPetFound: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} encontrado${is_male ? "" : "e"}!`,
-			body: (pet_name: string, is_male: boolean) => `${pet_name} ha sido encontrado${is_male ? "" : "e"} hoy por sus proprietarios :)`
+			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} encontrad${is_male ? "o" : "a"}!`,
+			body: (pet_name: string, is_male: boolean) => `${pet_name} ha sido encontrad${is_male ? "o" : "a"} hoy por sus proprietarios :)`
 		},
 		NewPetReport: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} declarado${is_male ? "" : "e"} perdido${is_male ? "" : "e"}!`,
-			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} ha sido declarado${is_male ? "" : "e"} perdido${is_male ? "" : "e"} cerca de ${
+			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"}!`,
+			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} ha sido declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"} cerca de ${
 				placeID == "user" ? "usted" : `${place_name}`
 			}${placeID == "user" ? ", ¡ojo!" : ""}`
 		},

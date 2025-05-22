@@ -14,11 +14,11 @@ export const en = {
 			GeolocationErrorCustomMessages: {
 				1: {
 					title: "Permission denied",
-					message: "You denied access to location services. Please go to settings and reload application to retry."
+					message: "You have denied access to location services. Please go to settings and reload the application to retry."
 				},
 				2: {
 					title: "Position unavailable",
-					message: "Unable to retrieve location. Please reload the app or contact support if the error persist."
+					message: "Unable to retrieve location. Please reload the app or contact support if the error persists."
 				},
 				3: {
 					title: "Timeout error",
@@ -26,32 +26,32 @@ export const en = {
 				}
 			},
 			FallBackErrorTitle: "Error",
-			FallBackErrorMessage: "An error occured, please retry, restart the app, or contact support if the error persist.",
+			FallBackErrorMessage: "An error occurred, please retry, restart the app, or contact support if the error persists.",
 			FallBackErrorButtonText: "Retry",
 			WaitingUser: "Connecting to Animalert...",
-			LoggedOutErrorTitle: "You are logged out !",
-			LoggedOutErrorMessage: "Please log in to access to all Animalert features.",
+			LoggedOutErrorTitle: "You are logged out!",
+			LoggedOutErrorMessage: "Please log in to access all Animalert features.",
 			LoggedOutErrorButtonContent: "Go to login",
 			GoToSettings: "Go to settings"
 		},
 		Screen: {
 			LoadingPosition: "Loading position...",
 			LoadingLostsPets: "Searching for lost pets around you...",
-			NoLostPetsAround: "No lost animals nearby !",
+			NoLostPetsAround: "No lost animals nearby!",
 			ErrorSearchingPets: "An error occurred when searching for animals lost in the area.",
-			TryAgain: "try again ?",
+			TryAgain: "Try again?",
 			AnyAnimalAround: (petsInRadius: number) => {
 				return (`${petsInRadius == 0 ? "No" : petsInRadius} ${(petsInRadius > 1) ? "pets" : "pets"} around`)
 			},
 			NearToYou: "Near you"
 		},
 		AddLostPet: {
-			AdUploadError: "An error occured while uploading the report, please try again",
+			AdUploadError: "An error occurred while uploading the report, please try again",
 			PetAddPpButton: "Pick an image",
 			PetNamePlaceholder: "Pet name",
 			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choose ${x}/${maxPics} pictures of ${petName ? petName : "your pet"}.`,
 			AddPicturesButton: "Add pictures",
-			PetDescriptionPlaceholder: "Pet detailled description goes here...",
+			PetDescriptionPlaceholder: "Pet detailed description goes here...",
 			AddLostPlace: (petName: string) => `Add the place where ${petName ? petName : "your pet"} disappeared.`,
 			EditPlace: "Edit place",
 			EditReport: "Edit my report",
@@ -59,8 +59,8 @@ export const en = {
 			UpdateAd: "Update report",
 			Delete: "Delete",
 			AdDeleted: "Report deleted",
-			AdDeletedSuccessfully: "The report has successfully been deleted.",
-			AdDeleteError: "An error occured while deleting the report, please try again",
+			AdDeletedSuccessfully: "The report has been successfully deleted.",
+			AdDeleteError: "An error occurred while deleting the report, please try again",
 			LostDate: "Date of disappearance",
 			SpeciePlaceholder: "cat, dog",
 			AgePlaceholder: "4 years old",
@@ -87,7 +87,7 @@ export const en = {
 				},
 				images_files: {
 					title: "Pictures",
-					content: "You must add at least one large picture of your pet.."
+					content: "You must add at least one large picture of your pet."
 				},
 				lat: {
 					title: "Location",
@@ -103,7 +103,7 @@ export const en = {
 				},
 				age: {
 					title: "Age",
-					content: "You must tell the age of your pet in years."
+					content: "You must tell the age of your pet."
 				},
 				type: {
 					title: "Specie",
@@ -130,7 +130,7 @@ export const en = {
 			},
 			StatusMessages: {
 				[pet_status.APPROVED]: (pet_name: string) => `${pet_name}'s report is online, and users can view it in the application`,
-				[pet_status.FOUND]: (pet_name: string) => `${pet_name}'s report is no longer visible on the map, users that saved it will be notified of the reunion`,
+				[pet_status.FOUND]: (pet_name: string) => `${pet_name}'s report is no longer visible on the map, users who saved it will be notified of the reunion`,
 				[pet_status.WAITING_APPROVAL]: (pet_name: string) => `${pet_name}'s report will be published as soon as it has been approved by a moderator.`,
 				updated: (pet_name: string) => `${pet_name}'s report is online. Your updates will be published as soon as a moderator has approved them.`,
 				[pet_status.DELETED]: (pet_name: string) => `${pet_name}'s report has been removed, so you're the only one who can see it.`,
@@ -143,7 +143,7 @@ export const en = {
 					age: "age",
 					gender: "gender",
 					castratedSterilized: "castrated/sterilized",
-					microship: "microship",
+					microship: "microchip",
 					is_testing: "Is this a test report?",
 					is_owner: "Are you the pet owner?"
 				},
@@ -201,7 +201,7 @@ export const en = {
 		LoginRegister: {
 			DefaultPhoneLocale: "+44",
 			InvalidPhoneNumber: "Invalid phone number.",
-			OTPSent: "Verification code has been sent to your phone.",
+			OTPSent: "The verification code has been sent to your phone.",
 			SuccessfulAuth: "Phone authentication successful 👍",
 			Error: "Error",
 			WaitingUserMessage: "Connecting...",
@@ -238,7 +238,7 @@ export const en = {
 				WriteUsScreen: {
 					OverScrollText: "Thanks in advance for your message 😻",
 					IntroTitle: "Would you like to contact us?",
-					IntroDescription: "Question, feedback, interview or just pure curiosity? You've come to the right place!\n\nIf you'd like us to get back to you, please leave your contact details.\nWe'll try to get back to you as soon as possible 😉",
+					IntroDescription: "Question, feedback, interview or just pure curiosity? You've come to the right place!\n\nIf you'd like us to get back to you, please leave your contact details.\nWe'll try to get back to you as soon we can 😉",
 					TextInputPlaceholder: "Your message",
 					SendMessageButton: "Send my message",
 					SendingState: {
@@ -252,9 +252,9 @@ export const en = {
 						ButtonText: "Go back to settings"
 					},
 					ErrorState: {
-						title: "An error occured",
+						title: "An error occurred",
 						rateLimitMessage: "You've sent a lot of messages recently, so once we've read them all you can send new ones!",
-						defaultMessage: "Your message could not be sent for a reason we do not know. If the problem persists, please do not hesitate to contact us by e-mail: contact@animalert.app !"
+						defaultMessage: "Your message could not be sent for an unknown reason. If the problem persists, please do not hesitate to contact us by e-mail: contact@animalert.app!"
 					}
 				},
 				BugReportScreen: {
@@ -263,7 +263,7 @@ export const en = {
 					IntroDescription: "You've come to the right place to report it!\n\nIf possible, please attach a screenshot of your problem.\n\nPlease also take a screenshot of the information below to help us fix the problem :)",
 					ContactText: "Choose the contact method that suits you best:",
 					Mail: "mail",
-					Thanks: "We'd like to thank you in advance for your feedback, which will help us to improve the application on a continual basis"
+					Thanks: "We'd like to thank you in advance for your feedback, which will help us to continually improve the application"
 				},
 				NotificationsScreen: {
 					title: "Notifications",
@@ -295,7 +295,7 @@ export const en = {
 				},
 				SavedReportsScreen: {
 					loadingSavedReports: "loading saved reports...",
-					overScrollText: "Please don't forget them, they're relying on you, and so are we",
+					overScrollText: "Please don't forget them, they rely on you, and so do we",
 					title: "Find your saved reports here",
 					reportsNotification: "if any of them are found, you will be notified.",
 					reportsAccess: "you can have access to these reports at any time.",
@@ -310,7 +310,7 @@ export const en = {
 			body: (version: string) => `Update the application to enjoy version ${version}!`
 		},
 		LostPetFound: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} recovered !`,
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} recovered!`,
 			body: (pet_name: string, _is_male: boolean) => `${pet_name} was reunited with her owners today :)`
 		},
 		PetLostAround: {
@@ -321,7 +321,7 @@ export const en = {
 			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} reported lost!`,
 			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} has been reported lost near ${
 				placeID == "user" ? "you" : `${place_name}`
-			}${placeID == "user" ? ", keep an eye out" : ""} !`
+			}${placeID == "user" ? ", keep an eye out" : ""}!`
 		},
 		ReportDenied: {
 			title: "Report denied by a moderator!",
@@ -352,7 +352,7 @@ export const en = {
 		Cancel: "Cancel",
 		Confirm: "Confirm",
 		Close: "Close",
-		ErrorOccuredPeaseRetry: "An error occured, please retry.",
+		ErrorOccuredPeaseRetry: "An error occurred, please retry.",
 		CantLoadImage: "the image could not be loaded",
 		PleaseWait: "please wait",
 		Now: "now",
