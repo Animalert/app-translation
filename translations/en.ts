@@ -43,7 +43,15 @@ export const en = {
 			AnyAnimalAround: (petsInRadius: number) => {
 				return (`${petsInRadius == 0 ? "No" : petsInRadius} ${(petsInRadius > 1) ? "pets" : "pets"} around`)
 			},
-			NearToYou: "Near you"
+			NearTo: (place_id: userPlace["id"], place_name?: string) => `near ${place_id == "user" ? "you" : place_name}`,
+			Filters: {
+				Title: "Filters",
+				FiltersDescription: "Select the reports to be shown according to the filters.",
+				ReportType: "Report type",
+				Found: "found",
+				LostPets: "Lost pets",
+				FoundPets: "Found pets"
+			},
 		},
 		AddLostPet: {
 			AdUploadError: "An error occurred while uploading the report, please try again",
@@ -71,14 +79,31 @@ export const en = {
 				GoToSettings: "Go to settings"
 			},
 			Popup: {
-				Updating: "Updating...",
-				AdUpdated: "Report updated",
-				Uploading: "Uploading...",
-				AdUploaded: "Report published",
-				AdUploadingMessage: (petName: string, uploadPercentage: number) => `Progression of ${petName}'s report upload: ${uploadPercentage}%.`,
-				AdUploadedMessage: (petName: string) =>`The announcement of ${petName}'s missing`,
-				AdUploadedMessageEdit: "has been successfully updated.",
-				AdUploadedMessageNoEdit: "has been successfully published."
+				NewReport: {
+					SendingState: {
+						title: "Uploading...",
+						message: (petName: string, uploadPercentage: number) => `Progress of ${petName}'s report upload: ${uploadPercentage}%.`,
+					},
+					DoneState: {
+						title: "Report published",
+						message: (is_new: boolean) => `We will proceed to a verification of the report${is_new ? "" : "'s updates"}. We will let you know as soon as it is visible to other users.`,
+					}
+				},
+				UpdateReport: {
+					SendingState: {
+						title: "Updating...",
+					},
+					DoneState: {
+						title: "Report updated",
+					}
+				},
+				ErrorState: {
+					rateLimitMessage: "You've sent a lot of reports recently, so once we've reviewed them all you can send new ones!",
+					defaultMessage: "Your report could not be sent for an unknown reason. If the problem persists, please do not hesitate to contact us by e-mail: contact@animalert.app!"
+				},
+				ReportUploadedMessage: (petName: string) => `The announcement of ${petName}'s missing`,
+				ReportUploadedMessageEdit: "has been successfully updated.",
+				ReportUploadedMessageNoEdit: "has been successfully published."
 			},
 			EssentialsKeysAlerts: {
 				name: {
@@ -120,7 +145,7 @@ export const en = {
 			Edit: "Edit",
 			InformationsAbout: (petName: string) => `Information about ${petName}:`,
 			TestReportMessage: "Please note that this is a test report; this pet is not really in danger.",
-			lostedDate: "Lost ",
+			Lost: (_plural: boolean, _is_male: boolean) => "Lost ",
 			FeedbackTitles: {
 				why_denied: "Reason for rejection",
 				why_blocked: "Reason for blocking",
@@ -166,7 +191,25 @@ export const en = {
 			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `We'll let you know when ${pet_name} is found`,
 			NotifyMe: (pet_name: string, _is_male: boolean) => `Notify me when ${pet_name} is found`,
 			IFoundPet: (pet_name: string) => `I recovered ${pet_name}`,
-			EditModeWindowitle: "Preview my report"
+			EditModeWindowitle: "Preview my report",
+			ShareReport: {
+				ShareButton: "Share",
+				Title: "Share the report",
+				Description: (pet_name?: string) => `Every share can help ${pet_name ? `find ${pet_name}` : "this pet"}, customize the poster to share below.`,
+				Format: {
+					story: "Poster / story format"
+				},
+				Poster: {
+					Default: {
+						HelpUsFind: (pet_name: string) => `Please help us find ${pet_name}`,
+						ContactTitle: "Any information? Please contact:",
+						BeNotified: (pet_name: string, _is_male: boolean) => `Be notified when ${pet_name} is found with Animalert`
+					},
+					InstagramStory: "Instagram Story",
+					FacebookStory: "Facebook Story",
+					Other: "Other"
+				}
+			}
 		}
 	},
 	Discover: {
@@ -348,9 +391,11 @@ export const en = {
 		Ok: "Ok",
 		No: "No",
 		Yes: "Yes",
+		You: "You",
 		Error: "Error",
 		Cancel: "Cancel",
 		Confirm: "Confirm",
+		Apply: "Apply",
 		Close: "Close",
 		ErrorOccuredPeaseRetry: "An error occurred, please retry.",
 		CantLoadImage: "the image could not be loaded",

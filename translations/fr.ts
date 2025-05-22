@@ -43,7 +43,15 @@ export const fr = {
 			AnyAnimalAround: (petsInRadius: number) => {
 				return (`${petsInRadius == 0 ? "Aucun" : petsInRadius} ${(petsInRadius > 1) ? "Animaux" : "Animal"} à proximité`)
 			},
-			NearToYou: "Proche de vous"
+			NearTo: (place_id: userPlace["id"], place_name?: string) => `proche de ${place_id == "user" ? "vous" : place_name}`,
+			Filters: {
+				Title: "Filtres",
+				FiltersDescription: "Sélectionnez les annonces à afficher en fonction des filtres.",
+				ReportType: "Type d'annonces",
+				Found: "trouvés",
+				LostPets: "Animaux perdus",
+				FoundPets: "Animaux trouvés"
+			},
 		},
 		AddLostPet: {
 			AdUploadError: "Une erreur est survenue lors de la mise en ligne de l'annonce, veuillez réessayer",
@@ -71,14 +79,31 @@ export const fr = {
 				GoToSettings: "Paramètres"
 			},
 			Popup: {
-				Updating: "Mise à jour...",
-				AdUpdated: "Annonce mise à jour",
-				Uploading: "Mise en ligne...",
-				AdUploaded: "Annonce publiée",
-				AdUploadingMessage: (petName: string, uploadPercentage: number) => `Progression de la mise en ligne de l'annonce de ${petName}: ${uploadPercentage}%.`,
-				AdUploadedMessage: (petName: string) =>`L'annonce signalant la disparition de ${petName}`,
-				AdUploadedMessageEdit: "à bien été mise à jour.",
-				AdUploadedMessageNoEdit: "à bien été mise en ligne."
+				NewReport: {
+					SendingState: {
+						title: "Mise en ligne...",
+						message: (petName: string, uploadPercentage: number) => `Progression de la mise en ligne de l'annonce de ${petName}: ${uploadPercentage}%.`,
+					},
+					DoneState: {
+						title: "Annonce publiée",
+						message: (is_new: boolean) => `Nous allons procéder à une vérification ${is_new ? "de l'annonce" : "des mises à jour"}. Nous vous informerons dès qu'${is_new ? "il sera" : "elles seront"} visible${is_new ? "" : "s"} par les autres utilisateurs.`,
+					}
+				},
+				UpdateReport: {
+					SendingState: {
+						title: "Mise à jour...",
+					},
+					DoneState: {
+						title: "Annonce mise à jour",
+					}
+				},
+				ErrorState: {
+					rateLimitMessage: "Vous avez envoyé beaucoup d'annonces récemment, une fois que nous les aurons toutes lues vous pourrez en envoyer à nouveau !",
+					defaultMessage: "Votre annonce n'a pas pu être envoyée pour une raison que nous ignorons, si le problème persiste, n'hésitez pas à nous contacter par mail: contact@animalert.app !"
+				},
+				ReportUploadedMessage: (petName: string) => `L'annonce signalant la disparition de ${petName}`,
+				ReportUploadedMessageEdit: "a bien été mise à jour.",
+				ReportUploadedMessageNoEdit: "a bien été mise en ligne."
 			},
 			EssentialsKeysAlerts: {
 				name: {
@@ -120,7 +145,7 @@ export const fr = {
 			Edit: "Modifier",
 			InformationsAbout: (petName: string) => `Informations concernant ${petName}:`,
 			TestReportMessage: "Attention ceci est une annonce de test, cet animal n'est pas réellement en danger.",
-			lostedDate: "Perdu ",
+			Lost: (plural: boolean, _is_male: boolean) => `Perdu${_is_male ? "" : "e"}${plural ? "s" : ""} `,
 			FeedbackTitles: {
 				why_denied: "Motif du refus",
 				why_blocked: "Motif du blocage",
@@ -166,7 +191,25 @@ export const fr = {
 			YouWillBeNotified: (pet_name: string, is_male: boolean) => `Vous serez informé.e quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
 			NotifyMe: (pet_name: string, is_male: boolean) => `Me prévenir quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
 			IFoundPet: (pet_name: string) => `J'ai retrouvé.e ${pet_name}`,
-			EditModeWindowitle: "Aperçu de mon annonce"
+			EditModeWindowitle: "Aperçu de mon annonce",
+			ShareReport: {
+				ShareButton: "Partager",
+				Title: "Partager l'annonce",
+				Description: (pet_name?: string) => `Chaque partage peut aider ${pet_name ? `à retrouver ${pet_name}` : "cet animal"}, personnalisez ci-dessous l'affiche à partager.`,
+				Format: {
+					story: "Format affiche / story"
+				},
+				Poster: {
+					Default: {
+						HelpUsFind: (pet_name: string) => `Aidez nous à retrouver ${pet_name}`,
+						ContactTitle: "Pour toute information, veuillez contacter :",
+						BeNotified: (pet_name: string, is_male: boolean) => `Soyez prévenus quand ${pet_name} sera retrouvé${is_male ? "" : "e"} avec Animalert`
+					},
+					InstagramStory: "Story Instagram",
+					FacebookStory: "Story Facebook",
+					Other: "Autre"
+				}
+			}
 		}
 	},
 	Discover: {
@@ -348,9 +391,11 @@ export const fr = {
 		Ok: "Ok",
 		No: "Non",
 		Yes: "Oui",
+		You: "Vous",
 		Error: "Erreur",
 		Cancel: "Annuler",
 		Confirm: "Confirmer",
+		Apply: "Appliquer",
 		Close: "Fermer",
 		ErrorOccuredPeaseRetry: "Une erreur est survenue, veuillez réessayer.",
 		CantLoadImage: "l'image n'a pu être chargée",
