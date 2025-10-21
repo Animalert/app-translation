@@ -57,7 +57,7 @@ export const it = {
             AdUploadError: "Si è verificato un errore durante il caricamento della segnalazione, riprova",
             PetAddPpButton: "Scegli un'immagine",
             PetNamePlaceholder: "Nome dell'animale",
-            ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Scegli ${x}/${maxPics} foto di ${petName ? petName : "il tuo animale"}.`,
+            ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Scegli ${x}/${maxPics} foto  ${petName ? `di ${petName}` : "del tuo animale"}.`,
             AddPicturesButton: "Aggiungi foto",
             PetDescriptionPlaceholder: "Inserisci qui la descrizione dettagliata dell'animale...",
             AddLostPlace: (petName: string) => `Aggiungi il luogo in cui ${petName ? petName : "il tuo animale"} è scomparso.`,
@@ -99,7 +99,7 @@ export const it = {
                 },
                 ErrorState: {
                     rateLimitMessage: "Hai inviato molte segnalazioni di recente; potrai inviarne di nuove non appena le avremo esaminate tutte!",
-                    defaultMessage: "La tua segnalazione non può essere inviata per un motivo sconosciuto. Se il problema persiste, non esitare a contattarci via e‑mail: contact@animalert.app!"
+                    defaultMessage: "La tua segnalazione non può essere inviata per un motivo sconosciuto. Se il problema persiste, non esitare a contattarci via e-mail: contact@animalert.app!"
                 },
                 ReportUploadedMessage: (petName: string) => `L'annuncio della scomparsa di ${petName}`,
                 ReportUploadedMessageEdit: "è stato aggiornato con successo.",
@@ -167,7 +167,7 @@ export const it = {
                     breed: "razza",
                     age: "età",
                     gender: "sesso",
-                    castratedSterilized: "castrato/sterilizzata",
+                    castratedSterilized: "castrato/sterilizzato",
                     microship: "microchip",
                     is_testing: "Questa è una segnalazione di test?",
                     is_owner: "Sei il proprietario dell'animale?"
@@ -248,8 +248,8 @@ export const it = {
             SuccessfulAuth: "Autenticazione tramite telefono riuscita 👍",
             Error: "Errore",
             WaitingUserMessage: "Connessione in corso...",
-            SendingSms: "Invio di un SMS...",
-            ScreenTitle: "Connettiti ad Animalert",
+            SendingSms: "Ti stiamo inviando un SMS...",
+            ScreenTitle: "Accedi ad Animalert",
             PhoneNumberInputContent: "Numero di telefono",
             PhoneNumberButtonContent: "Invia codice di verifica",
             OTPInputContent: "Codice di verifica",
@@ -297,7 +297,7 @@ export const it = {
                     ErrorState: {
                         title: "Si è verificato un errore",
                         rateLimitMessage: "Hai inviato molti messaggi di recente; potrai inviarne di nuovi non appena li avremo letti tutti!",
-                        defaultMessage: "Il tuo messaggio non può essere inviato per un motivo sconosciuto. Se il problema persiste, non esitare a contattarci via e‑mail: contact@animalert.app!"
+                        defaultMessage: "Il tuo messaggio non può essere inviato per un motivo sconosciuto. Se il problema persiste, non esitare a contattarci via e-mail: contact@animalert.app!"
                     }
                 },
                 BugReportScreen: {
@@ -314,12 +314,12 @@ export const it = {
                     IntroDescription: "Personalizza le opzioni di notifica; invieremo solo ciò che è necessario 😉",
                     GoToHistory: "Notifiche ricevute in precedenza",
                     RingTypes: {
-                        LostPet: "smarrito 🐶 nelle vicinanze!",
-                        HurtPet:  "ferito 🐱 nelle vicinanze!",
+                        LostPet: "🐶 smarrito nelle vicinanze!",
+                        HurtPet:  "🐱 ferito nelle vicinanze!",
                         OwnAdsUpdate: "La tua segnalazione è stata pubblicata!",
                         News: "Nuova versione disponibile!",
                         Funding: "Lancio di una campagna di raccolta fondi!",
-                        Testing: "🧪 - smarrito 🐶 nelle vicinanze! (notifiche beta)"
+                        Testing: "🧪 - 🐶 smarrito nelle vicinanze! (notifiche beta)"
                     }
                 },
                 NotificationHistoryScreen: {
@@ -354,16 +354,16 @@ export const it = {
         },
         LostPetFound: {
             title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} ritrovato!`,
-            body: (pet_name: string, _is_male: boolean) => `${pet_name} è stato riunito oggi ai suoi proprietari :)`
+            body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato riunito" : "stata riunita"} oggi ai suoi proprietari :)`
         },
         PetLostAround: {
             title: (_specie: string, _is_male: boolean) => `smarrito nelle vicinanze!`,
-            body: (pet_name: string, _is_male: boolean) => `${pet_name} è stato segnalato come smarrito vicino a te, fai attenzione!`,
+            body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "smarrito" : "smarrita"} vicino a te, fai attenzione!`,
         },
         NewPetReport: {
             title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalato come smarrito!`,
-            body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è stato segnalato come smarrito nei pressi di ${
-                placeID == "user" ? "te" : `${place_name}`
+            body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "smarrito" : "smarrita"} ${
+                placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
             }${placeID == "user" ? ", fai attenzione" : ""}!`
         },
         ReportDenied: {
