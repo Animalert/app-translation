@@ -48,7 +48,6 @@ export const it = {
 				Title: "Filtri",
 				FiltersDescription: "Seleziona le segnalazioni da mostrare in base ai filtri.",
 				ReportType: "Tipo di segnalazione",
-				Found: (plural: boolean, is_male: boolean) => `Ritrovat${!plural && is_male ? "o" : ""}${!plural && !is_male ? "a" : ""}${plural && is_male ? "i" : ""}${plural && !is_male ? "e" : ""} `,
 				LostPets: "Animali smarriti",
 				FoundPets: "Animali ritrovati"
 			},
@@ -139,6 +138,9 @@ export const it = {
 				title: "Immagine troppo grande",
 				message: (image_index: number) => `La tua immagine n.${image_index} è troppo grande, compriminala o scegli un'altra foto.`
 			}
+		},
+		SeeFoundPet: {
+			Found: (plural: boolean, is_male: boolean) => `Ritrovat${!plural && is_male ? "o" : ""}${!plural && !is_male ? "a" : ""}${plural && is_male ? "i" : ""}${plural && !is_male ? "e" : ""} `
 		},
 		SeeLostPet: {
 			LoadingPet: "Caricamento della segnalazione...",

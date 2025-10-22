@@ -6,6 +6,7 @@ export const fr = {
 	AppNavigation: {
 		ScreensTitles: {
 			AddLostPetScreen: "Déclarer un animal perdu",
+			AddFoundPetScreen: "Signaler un animal trouvé",
 			EditPlaceScreen: "Lieu de disparition"
 		}
 	},
@@ -37,7 +38,7 @@ export const fr = {
 		Screen: {
 			LoadingPosition: "Chargement de la position...",
 			LoadingLostsPets: "Recherche d'animaux perdus autour de vous...",
-			NoLostPetsAround: "Aucun animal perdu à proximité !",
+			NoPetsAround: (report_type: string, place_id: userPlace["id"], place_name: string) => `Aucun animal ${report_type}à proximité de ${place_id == "user" ? "vous" : place_name} !`,
 			ErrorSearchingPets: "Une erreur est survenue lors de la recherche des animaux perdus à proximité.",
 			TryAgain: "Réessayer ?",
 			AnyAnimalAround: (petsInRadius: number) => {
@@ -49,8 +50,14 @@ export const fr = {
 				FiltersDescription: "Sélectionnez les annonces à afficher en fonction des filtres.",
 				ReportType: "Type d'annonces",
 				LostPets: "Animaux perdus",
-				FoundPets: "Animaux trouvés"
+				FoundPets: "Animaux trouvés",
+				AllPets: "Tous les animaux"
 			},
+		},
+		AddFoundPet: {
+			PetNamePlaceholder: "Type d'animal",
+			TheAnimal: "l'animal",
+			FoundDate: "Date de la trouvaille"
 		},
 		AddLostPet: {
 			AdUploadError: "Une erreur est survenue lors de la mise en ligne de l'annonce, veuillez réessayer",
@@ -59,7 +66,8 @@ export const fr = {
 			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choisissez ${x}/${maxPics} photos de ${petName ? petName : "votre animal"}.`,
 			AddPicturesButton: "Ajouter des photos",
 			PetDescriptionPlaceholder: "Description détaillée de votre animal...",
-			AddLostPlace: (petName: string) => `Ajouter le lieu de disparition de ${petName ? petName : "mon animal"}.`,
+			AddLostPlace: (petName?: string) => `Ajouter le lieu de disparition de ${petName ? petName : "l'animal"}.`,
+			AddFoundPlace: () => "Ajouter le lieu où vous avez trouvé l'animal.",
 			EditPlace: "Modifier le lieu",
 			EditReport: "Modifier mon annonce",
 			UploadAd: "Mettre en ligne",
@@ -139,6 +147,35 @@ export const fr = {
 				message: (image_index: number) => `Votre ${image_index}${image_index == 1 ? "èr" : ""}e image est trop lourde, veuillez la compresser ou choisir une autre photo.`
 			}
 		},
+		SeeFoundPet: {
+			Found: (plural: boolean, _is_male: boolean) => `Trouvé${_is_male ? "" : "e"}${plural ? "s" : ""} `,
+			Categories: {
+				keys: {
+					know_owner: "Connaissez vous le propriétaire ?",
+					can_walk: "L'animal peut-il marcher ?",
+					is_awake: "L'animal est il réveillé ?",
+					is_injured: "L'animal est il blessé ?",
+					is_healthy: "L'animal a t-il l'air en bonne santé ?\n(hors blessures)",
+					is_agressive: "L'animal est il agressif ?",
+					did_pickup: "Avez vous pris l'animal avec vous ?",
+					bring_to_vet: "Allez vous emmener l'animal chez un vétérinaire ?"
+				},
+				values: {
+					injured: "Blessé.e",
+					safe: "Sauf",
+					cant_walk: "Incapable de se déplacer",
+					agressive: "Agressif"
+				}
+			},
+			NotifyMe: (pet_name: string, is_male: boolean) => `Me prévenir quand ${pet_name} aura retrouvé${is_male ? "" : "e"} sa famille`,
+			PetIsSafe: (pet_name: string) => `${pet_name} est maintenant en sécurité`,
+			Poster: {
+				Default: {
+					HelpUs: (pet_name: string) => `On a besoin de vous pour aider ${pet_name}`,
+					BeNotified: (pet_name: string) => `Soyez prévenus quand ${pet_name} aura retrouvé sa famille avec Animalert`
+				}
+			}
+		},
 		SeeLostPet: {
 			LoadingPet: "Chargement de l'annonce...",
 			Edit: "Modifier",
@@ -211,7 +248,22 @@ export const fr = {
 			}
 		}
 	},
+	Report: {
+		Title: "Sélectionnez le type de signalement à effectuer ci-dessous"
+	},
 	Discover: {
+		Title: "Découvrir",
+		LatestNews: "Dernières actualités",
+		SupportUs: "Nous soutenir",
+		SupportData: {
+			JoinTitle: "Adhérez à Animalert !",
+			WriteTitle: "Rédigez des articles pour WikiPaw",
+			DrawTitle: "Dessinez pour Animalert",
+			TalkTitle: "Aidez nous à traduire l'application",
+			Try_appTitle: "Faites un retour sur l'application",
+			LegalTitle: "Apportez un soutien juridique",
+			ThanksTitle: "Parlez de nous :)"
+		},
 		MakeADonation: "Faire un don",
 		PatchNoteScreen: {
 			Title: "Détails de la version",
@@ -275,7 +327,9 @@ export const fr = {
 					writeUs: "Nous écrire",
 					bugReport: "Signaler un bug",
 					security: "Sécurité et confidentialité",
-					thanks: "Remerciements"
+					thanks: "Remerciements",
+					privacy: "Politique de confidentialité",
+					tos: "Conditions d'utilisation"
 				},
 				WriteUsScreen: {
 					OverScrollText: "Merci d'avance pour votre message 😻",
@@ -339,9 +393,9 @@ export const fr = {
 					loadingSavedReports: "chargement des annonces...",
 					overScrollText: "Merci de ne pas les oublier, ils comptent sur toi, et nous aussi",
 					title: "Retrouvez ici vos annonces enregistrées",
-					reportsNotification: "si l'un d'entre eux est retrouvé, vous serez notifié.",
-					reportsAccess: "vous pouvez accéder à ces annonces à tout moment.",
-					noSavedReport: "aucune annonce sauvegardée pour le moment."
+					reportsNotification: "Si l'un d'entre eux est retrouvé, vous serez notifié.",
+					reportsAccess: "Vous pouvez accéder à ces annonces à tout moment.",
+					noSavedReport: "Aucune annonce sauvegardée pour le moment."
 				},
 			}
 		}
@@ -365,13 +419,26 @@ export const fr = {
 				placeID == "user" ? "vous" : `${place_name}`
 			}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
 		},
+		PetFoundAround: {
+			title: (specie: string) => `${getEmoji(specie)} trouvé.e à proximité !`,
+			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré.e trouvé.e ${is_injured ? "et blessé.e" : ""} à proximité de ${placeID == "user" ? "vous" : `${place_name}`}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
+		},
+		PetFoundNowSafe: {
+			title: (pet_name: string) => `${pet_name} est en sécurité !`,
+			body: (pet_name: string) => `${pet_name} est désormais en sécurité, et c'est en partie grace à vous, merci pour votre vigilance !`
+		},
+		NewFoundPetReport: {
+			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} déclaré${is_male ? "" : "e"} trouvé${is_male ? "" : "e"} !`,
+			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré${is_male ? "" : "e"} trouvé${is_male ? "" : "e"} à proximité de ${placeID == "user" ? "vous" : `${place_name}`}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
+		},
 		ReportDenied: {
 			title: "Annonce refusée par un modérateur !",
-			body: (pet_name: string) => `L'annonce concernant la disparition de ${pet_name} a été refusée.`
+			body: (pet_name: string) => `L'annonce concernant le signalement de ${pet_name} a été refusée.`
 		},
 		ReportApproved: {
 			title: "Votre annonce est en public !",
-			body: (pet_name: string, _is_male: boolean) => `Tout les utilisateurs se trouvant à proximité de ${pet_name} seront notifiés de sa disparition !`,
+			body: (pet_name: string, _is_male: boolean) => `Tous les utilisateurs se trouvant à proximité de ${pet_name} ont étés notifiés de sa disparition !`,
+			bodyNotLost: (pet_name: string, _is_male: boolean) => `Tous les utilisateurs se trouvant à proximité de ${pet_name} ont étés notifiés de votre signalement !`
 		},
 	},
 	Popup: {
@@ -390,6 +457,7 @@ export const fr = {
 		Ok: "Ok",
 		No: "Non",
 		Yes: "Oui",
+		All: "Tous",
 		You: "Vous",
 		Error: "Erreur",
 		Cancel: "Annuler",

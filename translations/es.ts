@@ -41,8 +41,7 @@ export const es = {
 			TryAgain: "reintentar ?",
 			AnyAnimalAround: (petsInRadius: number) => {
 				return (`${petsInRadius == 0 ? "Ningún" : petsInRadius} ${(petsInRadius > 1) ? "Mascotas" : "Mascota"} a su alrededor`)
-			},
-			NearToYou: "Cerca de usted"
+			}
 		},
 		AddLostPet: {
 			AdUploadError: "Ocurrió un error al publicar el anuncio, por favor intente de nuevo.",
@@ -69,14 +68,26 @@ export const es = {
 				GoToSettings: "Configuración"
 			},
 			Popup: {
-				Updating: "Actualizando...",
-				AdUpdated: "Anuncio actualizado",
-				Uploading: "Publicando",
-				AdUploaded: "Anuncio publicado",
-				AdUploadingMessage: (petName: string, uploadPercentage: number) => `Progresión de la publicación del anuncio de ${petName}: ${uploadPercentage}%.`,
-				AdUploadedMessage: (petName: string) =>`El anuncio informando la desaparición de ${petName}`,
-				AdUploadedMessageEdit: "ha sido actualizado.",
-				AdUploadedMessageNoEdit: "ha sido publicado."
+				NewReport: {
+					SendingState: {
+						title: "Publicando...",
+						message: (petName: string, uploadPercentage: number) => `Progresión de la publicación del anuncio de ${petName}: ${uploadPercentage}%.`,
+					},
+					DoneState: {
+						title: "Anuncio publicado"
+					}
+				},
+				UpdateReport: {
+					SendingState: {
+						title: "Actualizando...",
+					},
+					DoneState: {
+						title: "Anuncio actualizado",
+					}
+				},
+				ReportUploadedMessage: (petName: string) =>`El anuncio informando la desaparición de ${petName}`,
+				ReportUploadedMessageEdit: "ha sido actualizado.",
+				ReportUploadedMessageNoEdit: "ha sido publicado."
 			},
 			EssentialsKeysAlerts: {
 				name: {

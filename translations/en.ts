@@ -6,6 +6,7 @@ export const en = {
 	AppNavigation: {
 		ScreensTitles: {
 			AddLostPetScreen: "Report a lost animal",
+			AddFoundPetScreen: "Report a found animal",
 			EditPlaceScreen: "Place of disappearance"
 		}
 	},
@@ -37,7 +38,7 @@ export const en = {
 		Screen: {
 			LoadingPosition: "Loading position...",
 			LoadingLostsPets: "Searching for lost pets around you...",
-			NoLostPetsAround: "No lost animals nearby!",
+			NoPetsAround: (report_type: string, place_id: userPlace["id"], place_name: string) => `No ${report_type}animals near to ${place_id == "user" ? "you" : place_name} !`,
 			ErrorSearchingPets: "An error occurred when searching for animals lost in the area.",
 			TryAgain: "Try again?",
 			AnyAnimalAround: (petsInRadius: number) => {
@@ -49,8 +50,14 @@ export const en = {
 				FiltersDescription: "Select the reports to be shown according to the filters.",
 				ReportType: "Report type",
 				LostPets: "Lost pets",
-				FoundPets: "Found pets"
+				FoundPets: "Found pets",
+				AllPets: "All the pets"
 			},
+		},
+		AddFoundPet: {
+			PetNamePlaceholder: "Pet's specie",
+			TheAnimal: "the pet",
+			FoundDate: "Pet's found date"
 		},
 		AddLostPet: {
 			AdUploadError: "An error occurred while uploading the report, please try again",
@@ -60,6 +67,7 @@ export const en = {
 			AddPicturesButton: "Add pictures",
 			PetDescriptionPlaceholder: "Pet detailed description goes here...",
 			AddLostPlace: (petName: string) => `Add the place where ${petName ? petName : "your pet"} disappeared.`,
+			AddFoundPlace: () => "Add the location where you found the animal.",
 			EditPlace: "Edit place",
 			EditReport: "Edit my report",
 			UploadAd: "Upload report",
@@ -139,6 +147,35 @@ export const en = {
 				message: (image_index: number) => `Your ${image_index}${ image_index == 1 ? "st" : image_index == 2 ? "nd" : image_index == 3 ? "rd" : "th"} image is too big, please compress it or choose another photo.`
 			}
 		},
+		SeeFoundPet: {
+			Found: (_plural: boolean, _is_male: boolean) => `Found `,
+			Categories: {
+				keys: {
+					know_owner: "Do you know the owner?",
+					can_walk: "Can the animal walk?",
+					is_awake: "Is the animal awake?",
+					is_injured: "Is the animal injured?",
+					is_healthy: "Does the animal look healthy?\n(excluding injuries)",
+					is_agressive: "Is the animal aggressive?",
+					did_pickup: "Did you take the animal with you?",
+					bring_to_vet: "Are you going to take the animal to a vet?"
+				},
+				values: {
+					injured: "Injured",
+					safe: "Safe",
+					cant_walk: "Unable to move",
+					agressive: "Aggressive"
+				}
+			},
+			NotifyMe: (pet_name: string, _is_male: boolean) => `Notify me when ${pet_name} has been reunited with its family`,
+			PetIsSafe: (pet_name: string) => `${pet_name} is now safe`,
+			Poster: {
+				Default: {
+					HelpUs: (pet_name: string) => `We need your help to assist ${pet_name}`,
+					BeNotified: (pet_name: string) => `Be notified when ${pet_name} is reunited with its family with Animalert`
+				}
+			}
+		},
 		SeeLostPet: {
 			LoadingPet: "Loading the report...",
 			Edit: "Edit",
@@ -211,7 +248,22 @@ export const en = {
 			}
 		}
 	},
+	Report: {
+		Title: "Select the type of report to be made below"
+	},
 	Discover: {
+		Title: "Discover",
+		LatestNews: "Latest News",
+		SupportUs: "Support us",
+		SupportData: {
+			JoinTitle: "Join Animalert!",
+			WriteTitle: "Write articles for WikiPaw",
+			DrawTitle: "Draw for Animalert",
+			TalkTitle: "Help us translate the app",
+			Try_appTitle: "Provide feedback on the app",
+			LegalTitle: "Provide legal support",
+			ThanksTitle: "Talk about us :)"
+		},
 		MakeADonation: "Make a donation",
 		PatchNoteScreen: {
 			Title: "Version details",
@@ -275,7 +327,9 @@ export const en = {
 					writeUs: "Write us",
 					bugReport: "Report a bug",
 					security: "Security & privacy",
-					thanks: "Acknowledgements"
+					thanks: "Acknowledgements",
+					privacy: "Privacy Policy",
+					tos: "Terms of Service"
 				},
 				WriteUsScreen: {
 					OverScrollText: "Thanks in advance for your message 😻",
@@ -339,8 +393,8 @@ export const en = {
 					loadingSavedReports: "loading saved reports...",
 					overScrollText: "Please don't forget them, they rely on you, and so do we",
 					title: "Find your saved reports here",
-					reportsNotification: "if any of them are found, you will be notified.",
-					reportsAccess: "you can have access to these reports at any time.",
+					reportsNotification: "If any of them are found, you will be notified.",
+					reportsAccess: "You can have access to these reports at any time.",
 					noSavedReport: "No reports saved at the moment."
 				},
 			}
@@ -365,13 +419,26 @@ export const en = {
 				placeID == "user" ? "you" : `${place_name}`
 			}${placeID == "user" ? ", keep an eye out" : ""}!`
 		},
+		PetFoundAround: {
+			title: (specie: string) => `${getEmoji(specie)} found nearby!`,
+			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} was reported found ${is_injured ? "and injured" : ""} near ${placeID == "user" ? "you" : `${place_name}`}${placeID == "user" ? ", keep an eye out" : ""} !`
+		},
+		PetFoundNowSafe: {
+			title: (pet_name: string) => `${pet_name} is safe!`,
+			body: (pet_name: string) => `${pet_name} is now safe, and it's partially thanks to you. Thank you for your vigilance!`
+		},
+		NewFoundPetReport: {
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} reported found!`,
+			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} was reported found near ${placeID == "user" ? "you" : `${place_name}`}${placeID == "user" ? ", keep an eye out" : ""} !`
+		},
 		ReportDenied: {
 			title: "Report denied by a moderator!",
-			body: (pet_name: string) => `The report on ${pet_name}'s loss was rejected.`
+			body: (pet_name: string) => `The report about ${pet_name} was rejected.`
 		},
 		ReportApproved: {
 			title: "Your report has been published!",
-			body: (pet_name: string, is_male: boolean) => `All users in the area around ${pet_name} will be notified of ${is_male ? "his" : "her"} loss!`,
+			body: (pet_name: string, is_male: boolean) => `All users in the area around ${pet_name} have been notified of ${is_male ? "his" : "her"} loss!`,
+			bodyNotLost: (pet_name: string, _is_male: boolean) => `All users in ${pet_name}'s area have been notified of your report!`
 		}
 	},
 	Popup: {
@@ -390,6 +457,7 @@ export const en = {
 		Ok: "Ok",
 		No: "No",
 		Yes: "Yes",
+		All: "All",
 		You: "You",
 		Error: "Error",
 		Cancel: "Cancel",

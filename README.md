@@ -25,9 +25,11 @@ Verified (boolean): full proofreading for spelling and grammar accuracy.
 
 | Language | Coverage | Verified | Comments |
 |--------|------------|----------|-------------|
-| 🇬🇧 English (source) | 100% | ❌ |  Reference language |
+| 🇬🇧 English (source) | 100% | ❌ | Reference language |
 | 🇫🇷 Français (source) | 100% | ❌ | Langue de référence |
-| 🇪🇸 Español | 95.8% | ❌ | Translated from french by [@Dboire9](https://github.com/Dboire9/) |
+| 🇪🇸 Español | 93.3% | ❌ | Translated from french by [@Dboire9](https://github.com/Dboire9/) |
+| 🇮🇹 Italiano | 94.4% | ❌ | Translated from english? by [@leeoocca](https://github.com/leeoocca/) |
+
 
 
 > 📝 Want to improve a translation or add a new one? Check out the [CONTRIBUTING.md](./CONTRIBUTING.md) file to learn how to participate!
@@ -59,5 +61,5 @@ Thank you for your support! ❤️
 A big thank you to everyone who has contributed to this project! 🧡
 
 <a href="https://github.com/Animalert/app-translation/contributors">
-  <img src="https://contrib.rocks/image?repo=Animalert/app-translation" />
+	<img src="https://contrib.rocks/image?repo=Animalert/app-translation" />
 </a>
