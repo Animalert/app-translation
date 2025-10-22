@@ -48,7 +48,6 @@ export const fr = {
 				Title: "Filtres",
 				FiltersDescription: "Sélectionnez les annonces à afficher en fonction des filtres.",
 				ReportType: "Type d'annonces",
-				Found: "trouvés",
 				LostPets: "Animaux perdus",
 				FoundPets: "Animaux trouvés"
 			},
@@ -191,7 +190,7 @@ export const fr = {
 			YouWillBeNotified: (pet_name: string, is_male: boolean) => `Vous serez informé.e quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
 			NotifyMe: (pet_name: string, is_male: boolean) => `Me prévenir quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
 			IFoundPet: (pet_name: string) => `J'ai retrouvé.e ${pet_name}`,
-			EditModeWindowitle: "Aperçu de mon annonce",
+			EditModeWindowTitle: "Aperçu de mon annonce",
 			ShareReport: {
 				ShareButton: "Partager",
 				Title: "Partager l'annonce",

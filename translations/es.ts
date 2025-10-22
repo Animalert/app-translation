@@ -37,7 +37,6 @@ export const es = {
 		Screen: {
 			LoadingPosition: "Cargando la ubicación...",
 			LoadingLostsPets: "Buscando mascotas perdidas a su alrededor...",
-			NoLostPetsAround: "¡Ningún animal perdido cerca de usted!",
 			ErrorSearchingPets: "Ocurrió un error al buscar los animales perdidos cerca de usted.",
 			TryAgain: "reintentar ?",
 			AnyAnimalAround: (petsInRadius: number) => {
@@ -165,7 +164,7 @@ export const es = {
 			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `Usted será informado/a cuando se encuentre a ${pet_name}`,
 			NotifyMe: (pet_name: string, is_male: boolean) => `Avisarme cuando ${pet_name} sea encontrad${is_male ? "o" : "a"}`,
 			IFoundPet: (pet_name: string) => `He encontrado ${pet_name}`,
-			EditModeWindowitle: "Vista previa de mi anuncio"
+			EditModeWindowTitle: "Vista previa de mi anuncio"
 		}
 	},
 	Discover: {

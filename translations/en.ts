@@ -48,7 +48,6 @@ export const en = {
 				Title: "Filters",
 				FiltersDescription: "Select the reports to be shown according to the filters.",
 				ReportType: "Report type",
-				Found: "found",
 				LostPets: "Lost pets",
 				FoundPets: "Found pets"
 			},
@@ -191,7 +190,7 @@ export const en = {
 			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `We'll let you know when ${pet_name} is found`,
 			NotifyMe: (pet_name: string, _is_male: boolean) => `Notify me when ${pet_name} is found`,
 			IFoundPet: (pet_name: string) => `I recovered ${pet_name}`,
-			EditModeWindowitle: "Preview my report",
+			EditModeWindowTitle: "Preview my report",
 			ShareReport: {
 				ShareButton: "Share",
 				Title: "Share the report",
