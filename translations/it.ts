@@ -7,6 +7,7 @@ export const it = {
 	AppNavigation: {
 		ScreensTitles: {
 			AddLostPetScreen: "Segnala un animale smarrito",
+			AddFoundPetScreen: "Segnala un animale ritrovato",
 			EditPlaceScreen: "Luogo della scomparsa"
 		}
 	},
@@ -38,6 +39,7 @@ export const it = {
 		Screen: {
 			LoadingPosition: "Caricamento posizione...",
 			LoadingLostsPets: "Ricerca di animali smarriti intorno a te...",
+			NoPetsAround: (report_type: string, place_id: userPlace["id"], place_name: string) => `Nessun ${report_type} vicino a ${place_id == "user" ? "te" : place_name}!`,
 			ErrorSearchingPets: "Si è verificato un errore durante la ricerca di animali smarriti nell'area.",
 			TryAgain: "Riprova?",
 			AnyAnimalAround: (petsInRadius: number) => {
@@ -49,8 +51,14 @@ export const it = {
 				FiltersDescription: "Seleziona le segnalazioni da mostrare in base ai filtri.",
 				ReportType: "Tipo di segnalazione",
 				LostPets: "Animali smarriti",
-				FoundPets: "Animali ritrovati"
+				FoundPets: "Animali ritrovati",
+				AllPets: "Tutti gli animali"
 			},
+		},
+		AddFoundPet: {
+			PetNamePlaceholder: "Specie dell'animale",
+			TheAnimal: "l'animale",
+			FoundDate: "Data di ritrovamento dell'animale"
 		},
 		AddLostPet: {
 			AdUploadError: "Si è verificato un errore durante il caricamento della segnalazione, riprova",
@@ -60,6 +68,7 @@ export const it = {
 			AddPicturesButton: "Aggiungi foto",
 			PetDescriptionPlaceholder: "Inserisci qui la descrizione dettagliata dell'animale...",
 			AddLostPlace: (petName: string) => `Aggiungi il luogo in cui ${petName ? petName : "il tuo animale"} è scomparso.`,
+			AddFoundPlace: () => "Aggiungi il luogo in cui hai trovato l'animale.",
 			EditPlace: "Modifica luogo",
 			EditReport: "Modifica la mia segnalazione",
 			UploadAd: "Pubblica segnalazione",
@@ -140,7 +149,33 @@ export const it = {
 			}
 		},
 		SeeFoundPet: {
-			Found: (plural: boolean, is_male: boolean) => `Ritrovat${plural ? (is_male ? "i" : "e") : (is_male ? "o" : "a")} `
+			Found: (plural: boolean, is_male: boolean) => `Ritrovat${plural ? (is_male ? "i" : "e") : (is_male ? "o" : "a")} `,
+			Categories: {
+				keys: {
+					know_owner: "Conosci il proprietario?",
+					can_walk: "L'animale può camminare?",
+					is_awake: "L'animale è sveglio?",
+					is_injured: "L'animale è ferito?",
+					is_healthy: "L'animale sembra in buona salute?\n(escludendo le ferite)",
+					is_agressive: "L'animale è aggressivo?",
+					did_pickup: "Hai portato con te l'animale?",
+					bring_to_vet: "Porterai l'animale dal veterinario?"
+				},
+				values: {
+					injured: "Ferito",
+					safe: "Al sicuro",
+					cant_walk: "Non può muoversi",
+					agressive: "Aggressivo"
+				}
+			},
+			NotifyMe: (pet_name: string, _is_male: boolean) => `Avvisami quando ${pet_name} verrà riunito con la sua famiglia`,
+			PetIsSafe: (pet_name: string) => `${pet_name} è ora al sicuro`,
+			Poster: {
+				Default: {
+					HelpUs: (pet_name: string) => `Abbiamo bisogno del tuo aiuto per assistere ${pet_name}`,
+					BeNotified: (pet_name: string) => `Ricevi una notifica quando ${pet_name} verrà riunito con la sua famiglia con Animalert`
+				}
+			}		},
 		SeeLostPet: {
 			LoadingPet: "Caricamento della segnalazione...",
 			Edit: "Modifica",
@@ -213,7 +248,22 @@ export const it = {
 			}
 		}
 	},
+	Report: {
+			Title: "Seleziona il tipo di segnalazione da effettuare qui sotto",
+	},
 	Discover: {
+			Title: "Scopri",
+			LatestNews: "Ultime notizie",
+			SupportUs: "Sostienici",
+		SupportData: {
+				JoinTitle: "Unisciti ad Animalert!",
+				WriteTitle: "Scrivi articoli per WikiPaw",
+				DrawTitle: "Disegna per Animalert",
+				TalkTitle: "Aiutaci a tradurre l'app",
+				Try_appTitle: "Fornisci feedback sull'app",
+				LegalTitle: "Offri supporto legale",
+				ThanksTitle: "Parla di noi :)"
+		},
 		MakeADonation: "Fai una donazione",
 		PatchNoteScreen: {
 			Title: "Dettagli versione",
@@ -277,7 +327,9 @@ export const it = {
 					writeUs: "Scrivici",
 					bugReport: "Segnala un bug",
 					security: "Sicurezza e privacy",
-					thanks: "Ringraziamenti"
+					thanks: "Ringraziamenti",
+					privacy: "Privacy",
+					tos: "Termini di servizio"
 				},
 				WriteUsScreen: {
 					OverScrollText: "Grazie in anticipo per il tuo messaggio 😻",
@@ -367,6 +419,22 @@ export const it = {
 				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
 			}${placeID == "user" ? ", fai attenzione" : ""}!`
 		},
+		PetFoundAround: {
+			title: (specie: string) => `${getEmoji(specie)} trovato nelle vicinanze!`,
+			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è stato segnalato come trovato${is_injured ? " e ferito" : ""} ${
+				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
+			}${placeID == "user" ? ", fai attenzione" : ""}!`
+		},
+		PetFoundNowSafe: {
+			title: (pet_name: string) => `${pet_name} è al sicuro!`,
+			body: (pet_name: string) => `${pet_name} è ora al sicuro, e lo è in parte grazie a te. Grazie per la tua vigilanza!`
+		},
+		NewFoundPetReport: {
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalat${_is_male ? "o" : "a"} come trovat${_is_male ? "o" : "a"}!`,
+			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "trovato" : "trovata"} ${
+				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
+			}${placeID == "user" ? ", fai attenzione" : ""}!`
+		},
 		ReportDenied: {
 			title: "Segnalazione rifiutata da un moderatore!",
 			body: (pet_name: string) => `La segnalazione della scomparsa di ${pet_name} è stata rifiutata.`
@@ -374,6 +442,7 @@ export const it = {
 		ReportApproved: {
 			title: "La tua segnalazione è stata pubblicata!",
 			body: (pet_name: string, is_male: boolean) => `Tutti gli utenti nell'area intorno a ${pet_name} saranno avvisati della sua scomparsa!`,
+			bodyNotLost: (pet_name: string, _is_male: boolean) => `Tutti gli utenti nell'area di ${pet_name} sono stati informati della tua segnalazione!`,
 		}
 	},
 	Popup: {
@@ -392,6 +461,7 @@ export const it = {
 		Ok: "Ok",
 		No: "No",
 		Yes: "Sì",
+		All: "Tutti",
 		You: "Tu",
 		Error: "Errore",
 		Cancel: "Annulla",
