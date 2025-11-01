@@ -374,7 +374,7 @@ export const it = {
 		},
 		ReportApproved: {
 			title: "La tua segnalazione è stata pubblicata!",
-			body: (pet_name: string, is_male: boolean) => `Tutti gli utenti nell'area intorno a ${pet_name} saranno avvisati della ${is_male ? "sua" : "sua"} scomparsa!`,
+			body: (pet_name: string, is_male: boolean) => `Tutti gli utenti nell'area intorno a ${pet_name} saranno avvisati della sua scomparsa!`,
 		}
 	},
 	Popup: {
