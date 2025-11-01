@@ -140,8 +140,7 @@ export const it = {
 			}
 		},
 		SeeFoundPet: {
-			Found: (plural: boolean, is_male: boolean) => `Ritrovat${!plural && is_male ? "o" : ""}${!plural && !is_male ? "a" : ""}${plural && is_male ? "i" : ""}${plural && !is_male ? "e" : ""} `
-		},
+			Found: (plural: boolean, is_male: boolean) => `Ritrovat${plural ? (is_male ? "i" : "e") : (is_male ? "o" : "a")} `
 		SeeLostPet: {
 			LoadingPet: "Caricamento della segnalazione...",
 			Edit: "Modifica",
