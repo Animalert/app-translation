@@ -168,7 +168,7 @@ export const it = {
 					agressive: "Aggressivo"
 				}
 			},
-			NotifyMe: (pet_name: string, _is_male: boolean) => `Avvisami quando ${pet_name} verrà riunito con la sua famiglia`,
+			NotifyMe: (pet_name: string, _is_male: boolean) => `Avvisami quando ${pet_name} verrà riunit${_is_male ? "o" : "a"} con la sua famiglia`,
 			PetIsSafe: (pet_name: string) => `${pet_name} è ora al sicuro`,
 			Poster: {
 				Default: {
@@ -181,7 +181,7 @@ export const it = {
 			Edit: "Modifica",
 			InformationsAbout: (petName: string) => `Informazioni su ${petName}:`,
 			TestReportMessage: "Attenzione: questa è una segnalazione di test; questo animale non è realmente in pericolo.",
-			Lost: (_plural: boolean, _is_male: boolean) => "Smarrito ",
+			Lost: (_plural: boolean, _is_male: boolean) => `Smarrit${_plural ? (_is_male ? "i" : "e") : (_is_male ? "o" : "a")} `,
 			FeedbackTitles: {
 				why_denied: "Motivo del rifiuto",
 				why_blocked: "Motivo del blocco",
@@ -224,8 +224,8 @@ export const it = {
 					genderFemale: "femmina",
 				}
 			},
-			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `Ti avviseremo quando ${pet_name} verrà ritrovato`,
-			NotifyMe: (pet_name: string, _is_male: boolean) => `Avvisami quando ${pet_name} verrà ritrovato`,
+			YouWillBeNotified: (pet_name: string, _is_male: boolean) => `Ti avviseremo quando ${pet_name} verrà ritrovat${_is_male ? "o" : "a"}`,
+			NotifyMe: (pet_name: string, _is_male: boolean) => `Avvisami quando ${pet_name} verrà ritrovat${_is_male ? "o" : "a"}`,
 			IFoundPet: (pet_name: string) => `Ho ritrovato ${pet_name}`,
 			EditModeWindowTitle: "Anteprima della mia segnalazione",
 			ShareReport: {
@@ -239,7 +239,7 @@ export const it = {
 					Default: {
 						HelpUsFind: (pet_name: string) => `Aiutaci a trovare ${pet_name}, per favore`,
 						ContactTitle: "Hai informazioni? Contatta:",
-						BeNotified: (pet_name: string, _is_male: boolean) => `Ricevi una notifica quando ${pet_name} verrà ritrovato con Animalert`
+						BeNotified: (pet_name: string, _is_male: boolean) => `Ricevi una notifica quando ${pet_name} verrà ritrovat${_is_male ? "o" : "a"} con Animalert`
 					},
 					InstagramStory: "Storia Instagram",
 					FacebookStory: "Storia Facebook",
@@ -406,15 +406,15 @@ export const it = {
 			body: (version: string) => `Aggiorna l'app per usufruire della versione ${version}!`
 		},
 		LostPetFound: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} ritrovato!`,
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} ritrovat${_is_male ? "o" : "a"}!`,
 			body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato riunito" : "stata riunita"} oggi ai suoi proprietari :)`
 		},
 		PetLostAround: {
-			title: (_specie: string, _is_male: boolean) => `smarrito nelle vicinanze!`,
-			body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "smarrito" : "smarrita"} vicino a te, fai attenzione!`,
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} smarrit${_is_male ? "o" : "a"} nelle vicinanze!`,
+			body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come smarrit${_is_male ? "o" : "a"} vicino a te, fai attenzione!`,
 		},
 		NewPetReport: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalato come smarrito!`,
+			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalat${_is_male ? "o" : "a"} come smarrit${_is_male ? "o" : "a"}!`,
 			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "smarrito" : "smarrita"} ${
 				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
 			}${placeID == "user" ? ", fai attenzione" : ""}!`
