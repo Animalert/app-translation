@@ -19,7 +19,7 @@ We welcome all contributions, but it is essential to follow our contribution gui
 ## 🌍 Main Language & Available Translations
 This repository is in **English**, as it is the source language for all translations. All new languages are translated from `English` or `French` to preserve nuances, wordplays, and specific expressions as accurately as possible.
 
-### 📜 Translation Status
+### 📜 App Translation Status
 Coverage (percentage): percentage of translation completeness compared to the reference language.
 Verified (boolean): full proofreading for spelling and grammar accuracy.
 
@@ -28,8 +28,14 @@ Verified (boolean): full proofreading for spelling and grammar accuracy.
 | 🇬🇧 English (source) | 100% | ❌ | Reference language |
 | 🇫🇷 Français (source) | 100% | ❌ | Langue de référence |
 | 🇪🇸 Español | 93.3% | ❌ | Translated from french by [@Dboire9](https://github.com/Dboire9/) |
-| 🇮🇹 Italiano | 94.4% | ❌ | Translated from english? by [@leeoocca](https://github.com/leeoocca/) |
+| 🇮🇹 Italiano | 100% | ❌ | Translated from english && french by [@leeoocca](https://github.com/leeoocca/) |
 
+### 📜 Widget Translation Status
+
+| Language | Coverage | Verified | Comments |
+|--------|------------|----------|-------------|
+| 🇬🇧 English (source) | 100% | ❌ | Reference language |
+| 🇫🇷 Français (source) | 100% | ❌ | Langue de référence |
 
 
 > 📝 Want to improve a translation or add a new one? Check out the [CONTRIBUTING.md](./CONTRIBUTING.md) file to learn how to participate!
