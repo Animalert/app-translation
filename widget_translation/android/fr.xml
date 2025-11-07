@@ -1,0 +1,19 @@
+<resources>
+	<string name="app_name" translatable="true">Animalert</string>
+
+	<string name="and_one_other" translatable="true">Et %1$d autre</string>
+	<string name="and_x_other" translatable="true">Et %1$d autres</string>
+	<string name="current_location" translatable="true">Position actuelle</string>
+	<string name="error_default" translatable="true">Recherche d’annonces impossible (%1$s)</string>
+	<string name="error_location" translatable="true">Erreur de localisation %1$s</string>
+	<string name="error_location_description" translatable="true">Merci d’activer la position</string>
+	<string name="error_location_required_description" translatable="true">Merci d’activer la localisation pour Animalert et ses widgets.</string>
+	<string name="error_login" translatable="true">Connectez Vous</string>
+	<string name="error_unknown" translatable="true">Erreur inconnue</string>
+	<string name="loading_position" translatable="true">Chargement de votre position…</string>
+	<string name="please_wait" translatable="true">Veuillez patienter.</string>
+	<string name="pets_around" translatable="true">animaux à proximité</string>
+	<string name="searching_reports_around_user" translatable="true">Recherche d’animaux à proximité…</string>
+	<string name="widget_description" translatable="true">Soyez au courant de toutes les annonces autour de vous en un coup d’oeil.</string>
+	<string name="widget_name" translatable="true">Radar Widget</string>
+</resources>

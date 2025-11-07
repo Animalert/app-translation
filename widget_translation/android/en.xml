@@ -1,0 +1,19 @@
+<resources>
+	<string name="app_name" translatable="true">Animalert</string>
+
+	<string name="and_one_other" translatable="true">And %1$d other</string>
+	<string name="and_x_other" translatable="true">And %1$d others</string>
+	<string name="current_location" translatable="true">Current Location</string>
+	<string name="error_default" translatable="true">Couldn’t find Pets around (%1$s)</string>
+	<string name="error_location" translatable="true">Location Error %1$s</string>
+	<string name="error_location_description" translatable="true">Please turn on Location services</string>
+	<string name="error_location_required_description" translatable="true">Please enable location services for Animalert and his widgets.</string>
+	<string name="error_login" translatable="true">Please Login</string>
+	<string name="error_unknown" translatable="true">Unknown Error</string>
+	<string name="loading_position" translatable="true">Loading position...</string>
+	<string name="please_wait" translatable="true">Please wait.</string>
+	<string name="pets_around" translatable="true">pets around</string>
+	<string name="searching_reports_around_user" translatable="true">Searching reports around you...</string>
+	<string name="widget_description" translatable="true">Be aware of all the reports around you at a glance.</string>
+	<string name="widget_name" translatable="true">Radar Widget</string>
+</resources>
