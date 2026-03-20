@@ -1,12 +1,13 @@
-import { pet_status } from "../types/enums";
+import { contact_method, pet_report_steps, pet_status } from "../types/enums";
 import { userPlace } from "../types/types";
-import { getEmoji } from "../utils/utils";
+import { getEmoji, Platform } from "../utils/utils";
 
 export const fr = {
 	AppNavigation: {
 		ScreensTitles: {
 			AddLostPetScreen: "Déclarer un animal perdu",
 			AddFoundPetScreen: "Signaler un animal trouvé",
+			AddDeadPetScreen: "Signaler un animal décédé",
 			EditPlaceScreen: "Lieu de disparition"
 		}
 	},
@@ -19,7 +20,7 @@ export const fr = {
 				},
 				2: {
 					title: "Position indisponible",
-					message: "Animalert n'arrive pas à récupérer votre position. Relancez l'application pour réessayer ou contactez le support si le problème persiste."
+					message: `Animalert n'arrive pas à récupérer votre position. Cela peut être du à un faible signal GPS, ou une mauvaise connexion.${Platform.OS == "android" ? " Avez-vous bien activé la localisation ?" : ""}`
 				},
 				3: {
 					title: "Position expirée",
@@ -41,9 +42,7 @@ export const fr = {
 			NoPetsAround: (report_type: string, place_id: userPlace["id"], place_name: string) => `Aucun animal ${report_type}à proximité de ${place_id == "user" ? "vous" : place_name} !`,
 			ErrorSearchingPets: "Une erreur est survenue lors de la recherche des animaux perdus à proximité.",
 			TryAgain: "Réessayer ?",
-			AnyAnimalAround: (petsInRadius: number) => {
-				return (`${petsInRadius == 0 ? "Aucun" : petsInRadius} ${(petsInRadius > 1) ? "Animaux" : "Animal"} à proximité`)
-			},
+			AnyAnimalAround: (petsInRadius: number) => (`${petsInRadius == 0 ? "Aucun" : petsInRadius} ${(petsInRadius > 1) ? "Animaux" : "Animal"} à proximité`),
 			NearTo: (place_id: userPlace["id"], place_name?: string) => `proche de ${place_id == "user" ? "vous" : place_name}`,
 			Filters: {
 				Title: "Filtres",
@@ -51,22 +50,63 @@ export const fr = {
 				ReportType: "Type d'annonces",
 				LostPets: "Animaux perdus",
 				FoundPets: "Animaux trouvés",
+				DeadPets: "Animaux décédés",
 				AllPets: "Tous les animaux"
 			},
 		},
+		AddDeadPet: {
+			FoundDate: "Quand avez vous trouvé l'animal ?",
+			StepHeaderTitle: {
+				[pet_report_steps.INFOS]: "Informations",
+				[pet_report_steps.PLACE]: "Où se trouve l'animal ?",
+				[pet_report_steps.EXTRA_INFOS]: "Informations optionelles",
+				[pet_report_steps.REVIEW]: "Mise en ligne",
+			},
+			PlaceSection: {
+				SupportTitle: "Prise en charge",
+				ZoneCovered: "Zone couverte : Intervention rapide possible.",
+				ZoneNotCovered: "Hors zone partenaire : Signalement citoyen.",
+				AreaResponsible: "Responsable de la zone",
+				GuaranteeSupport: "Pour garantir une prise en charge.",
+				NoPartnerMatch: "Aucun des partenaires ci-dessus ne correspond.",
+				SelectPartnerAlert: "Vous devez sélectionner un partenaire",
+				WhyChoose: {
+					title: "Pourquoi choisir ?",
+					content: "Chaque service intervient uniquement sur son territoire.",
+				}
+			},
+			CitizenReport: {
+				title: "Signalement citoyen",
+				description: "Aucun partenaire Animalert n'est encore actif ici. Votre signalement sera enregistré, et nous vous donnerons les numéros à appeler en fin d'étape.",
+			},
+			Popup: {
+				NewReport: {
+					DoneState: {
+						message: (has_city: boolean, city_name?: string) => has_city ?
+							`Merci pour votre signalement. Il a bien été transmis aux services de ${city_name}. L'annonce sera examinée, et ${city_name} reviendra vers vous si nécessaire.`
+							: "Merci pour votre signalement. Ces informations sont précieuses : elles restent enregistrées dans notre base et permettront peut-être à un propriétaire de retrouver la trace de son animal.",
+					}
+				},
+				ReportUploadedMessage: (petName: string) => `L'annonce concernant le décès de ${petName}`,
+			},
+		},
 		AddFoundPet: {
-			PetNamePlaceholder: "Type d'animal",
+			PetNamePlaceholder: "Espèce de l'animal",
 			TheAnimal: "l'animal",
-			FoundDate: "Date de la trouvaille"
+			FoundDate: "Date de la trouvaille",
+			PetDescriptionPlaceholder: "Mentionnez ici toute information qui vous parait pertinente.",
+			Popup: {
+				ReportUploadedMessage: (petName: string) => `L'annonce signalant que ${petName} a été trouvé(e)`,
+			},
 		},
 		AddLostPet: {
 			AdUploadError: "Une erreur est survenue lors de la mise en ligne de l'annonce, veuillez réessayer",
 			PetAddPpButton: "Choisissez une image",
 			PetNamePlaceholder: "Nom de votre animal",
-			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choisissez ${x}/${maxPics} photos de ${petName ? petName : "votre animal"}.`,
+			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choisissez ${x}/${maxPics} photos de ${petName || "votre animal"}.`,
 			AddPicturesButton: "Ajouter des photos",
 			PetDescriptionPlaceholder: "Description détaillée de votre animal...",
-			AddLostPlace: (petName?: string) => `Ajouter le lieu de disparition de ${petName ? petName : "l'animal"}.`,
+			AddLostPlace: (petName?: string) => `Ajouter le lieu de disparition de ${petName || "l'animal"}.`,
 			AddFoundPlace: () => "Ajouter le lieu où vous avez trouvé l'animal.",
 			EditPlace: "Modifier le lieu",
 			EditReport: "Modifier mon annonce",
@@ -79,6 +119,10 @@ export const fr = {
 			LostDate: "Date de disparition",
 			SpeciePlaceholder: "chat, chien",
 			AgePlaceholder: "4 ans",
+			CloseReport: {
+				title: "Attention",
+				description: "Toutes les modifications en cours seront supprimées"
+			},
 			SelectGalleryImages: {
 				NoLibrairyPermission: "Animalert ne dispose pas de l'accès à votre galerie, veuillez autoriser l'application pour continuer.",
 				UnknownError: "Animalert n'a pas réussi à accéder à la galerie, veuillez réessayer, ou nous le signaler si le problème persiste.",
@@ -93,7 +137,7 @@ export const fr = {
 					},
 					DoneState: {
 						title: "Annonce publiée",
-						message: (is_new: boolean) => `Nous allons procéder à une vérification ${is_new ? "de l'annonce" : "des mises à jour"}. Nous vous informerons dès qu'${is_new ? "il sera" : "elles seront"} visible${is_new ? "" : "s"} par les autres utilisateurs.`,
+						message: (is_new: boolean, _?: string) => `Nous allons procéder à une vérification ${is_new ? "de l'annonce" : "des mises à jour"}. Nous vous informerons dès qu'${is_new ? "elle sera" : "elles seront"} visible${is_new ? "" : "s"} par les autres utilisateurs.`,
 					}
 				},
 				UpdateReport: {
@@ -119,19 +163,20 @@ export const fr = {
 				},
 				images_files: {
 					title: "Photos",
-					content: "Vous devez ajouter au minimum une photo grand format de votre animal."
+					content: (found?: boolean) => `Vous devez ajouter au minimum une photo de ${found ? "l'" : "votre "}animal.`,
 				},
 				lat: {
 					title: "Localisation",
-					content: "Vous devez ajouter un lieu de disparition pour votre animal."
+					content: (found?: boolean) => `Vous devez ajouter ${found ? "l'emplacement auquel vous avez trouvé l'" : "un lieu de disparition pour votre "}animal.`,
 				},
 				lng: {
 					title: "Localisation",
-					content: "Vous devez ajouter un lieu de disparition pour votre animal."
+					content: (found?: boolean) => `Vous devez ajouter ${found ? "l'emplacement auquel vous avez trouvé l'" : "un lieu de disparition pour votre "}animal.`,
 				},
 				description: {
 					title: "Description",
-					content: "Vous devez ajouter une description détaillée de votre animal."
+					foundTitle: "Informations complémentaires",
+					content: (found?: boolean) => `Vous devez ajouter ${found ? "du contexte pour nous aider a comprendre la situation" : "une description détaillée de votre animal"}.`
 				},
 				age: {
 					title: "Âge",
@@ -139,7 +184,7 @@ export const fr = {
 				},
 				type: {
 					title: "Espèce",
-					content: "Vous devez indiquer de quel type d'animal il s'agit."
+					content: "Vous devez indiquer l'espèce de l'animal."
 				}
 			},
 			ImageSizeError: {
@@ -148,7 +193,7 @@ export const fr = {
 			}
 		},
 		SeeFoundPet: {
-			Found: (plural: boolean, _is_male: boolean) => `Trouvé${_is_male ? "" : "e"}${plural ? "s" : ""} `,
+			Found: (plural: boolean, is_male: boolean) => `Trouvé${is_male ? "" : "e"}${plural ? "s" : ""} `,
 			Categories: {
 				keys: {
 					know_owner: "Connaissez vous le propriétaire ?",
@@ -176,12 +221,76 @@ export const fr = {
 				}
 			}
 		},
+		SeeDeadPet: {
+			NotifyMe: () => "Me prévenir de l'avancement de la situation.",
+			Dead: (plural: boolean, is_male: boolean) => `Décédé${is_male ? "" : "e"}${plural ? "s" : ""}`,
+			Categories: {
+				keys: {
+					is_injured: "L'animal est il blessé ?",
+					is_healthy: "L'animal avait t-il l'air en bonne santé ?\n(hors blessures)",
+					did_pickup: "Avez vous pris l'animal avec vous ?",
+				}
+			},
+			ContactCity: {
+				title: "Contacter votre ville",
+				YourCity: "Votre ville",
+				CountryCapital: "Paris",
+				QueryPhone: "téléphone",
+				QueryTownHall: "mairie",
+				AccessPhone: "Accéder au numéro",
+				INotifiedCity: "J'ai prévenu la mairie"
+			},
+			Show: "Afficher",
+			Hide: "Cacher",
+			ProInfos: {
+				Assigned: "Assigné",
+				NonAssigned: "Non assigné"
+			},
+			Timeline: {
+				Title: {
+					CitizenReport: "Signalement enregistré (Hors zone)",
+					CityNotified: "Action confirmée",
+					Transmission: "Alerte transmise",
+					TooLate: "Délai d'intervention dépassé",
+					Accepted: "Prise en charge confirmée",
+					NotFound: "Intervention terminée (Introuvable)",
+					Found: "Récupération effectuée"
+				},
+				Description: {
+					CitizenReport: "Votre signalement est bien enregistré.\n\nComme aucune ville partenaire n'est encore active ici, une action manuelle est nécessaire pour que l'animal soit pris en charge.",
+					CityNotified: "Vous nous avez indiqué avoir contacté un service tiers. Merci pour votre action déterminante pour le respect de l'animal et la propreté des lieux.",
+					Transmission: (org_name: string) => `Votre signalement a été envoyé instantanément aux services de : ${org_name}. Ils sont désormais officiellement informés de la situation.`,
+					TooLate: (org_name: string) => `Malheureusement, ${org_name} n'a pas donné suite à votre alerte après 7 jours. Animalert prend désormais le relais pour signaler ce manquement.\n\nNous vous prions de nous excuser pour l'inaction des services concernés, et vous confirmons qu'Animalert a pris le relais.`,
+					Accepted: (org_name: string) => `Bonne nouvelle : un agent de ${org_name} a validé votre signalement. Une équipe est désormais planifiée pour intervenir sur les lieux.`,
+					NotFound: (org_name: string) => `Les services de ${org_name} se sont rendus sur place mais n'ont pas pu retrouver l'animal. Le signalement est désormais clôturé. Merci tout de même pour votre vigilance.`,
+					Found: (org_name: string) => `L'animal a été récupéré par les services de ${org_name}. Grâce à votre signalement, l'animal sera traité dignement et la zone est de nouveau sécurisée. Merci pour votre civisme !`
+				},
+				ContactCity: "Prévenir la mairie"
+			},
+			AsAgent: {
+				InterventionDelayExceeded: "Délai d'intervention dépassé.",
+				TooLate: "Vous n'avez pas accepté l'annonce dans un délais de 7 jours",
+				NotHandledYet: "Cette annonce n'est pas encore traitée",
+				NotHandledDescription: "En prenant en charge l'annonce vous vous engagez a vous rendre sur place dans un délais de 7 jours suivant le signalement.",
+				YouHandleReport: "Vous êtes en charge de l'annonce",
+				YouHandleActions: "Veuillez vous rendre sur place pour confirmer la présence de l'animal.\n\nPour les actions suivantes rendez vous en bas de l'annonce.",
+				SomeoneElseHandleReport: "Un autre agent est déjà sur le coup",
+				Archive: "Archiver",
+				Archived: "Annonce archivée",
+				HandleReport: "Prendre en charge l'annonce",
+				FoundPet: "J'ai trouvé l'animal et il va être récupéré",
+				NotFoundPet: "Je suis sur place et l'animal n'est pas présent",
+				FoundPetRecord: (time_ago: string) => `Vous avez déclaré avoir trouvé l'animal ${time_ago}.`,
+				NotFoundPetRecord: (time_ago: string) => `Vous avez déclaré avoir ne pas avoir trouvé l'animal ${time_ago}.`
+			},
+		},
 		SeeLostPet: {
 			LoadingPet: "Chargement de l'annonce...",
+			LoadingError: "Il semblerait que cette annonce n'existe plus. Il est possible que l'auteur l'ait supprimée.",
 			Edit: "Modifier",
 			InformationsAbout: (petName: string) => `Informations concernant ${petName}:`,
 			TestReportMessage: "Attention ceci est une annonce de test, cet animal n'est pas réellement en danger.",
-			Lost: (plural: boolean, _is_male: boolean) => `Perdu${_is_male ? "" : "e"}${plural ? "s" : ""} `,
+			Lost: (plural: boolean, is_male: boolean) => `Perdu${is_male ? "" : "e"}${plural ? "s" : ""} `,
 			FeedbackTitles: {
 				why_denied: "Motif du refus",
 				why_blocked: "Motif du blocage",
@@ -237,8 +346,10 @@ export const fr = {
 				},
 				Poster: {
 					Default: {
+						LostSpecie: (lost: string, specie: string) => `${specie} ${lost}`, // ex: chien perdu
+						FoundSpecie: (found: string, specie: string) => `${specie} ${found}`, // ex: chien trouvé
 						HelpUsFind: (pet_name: string) => `Aidez nous à retrouver ${pet_name}`,
-						ContactTitle: "Pour toute information, veuillez contacter :",
+						ContactTitle: "Pour toute information, veuillez contacter :",
 						BeNotified: (pet_name: string, is_male: boolean) => `Soyez prévenus quand ${pet_name} sera retrouvé${is_male ? "" : "e"} avec Animalert`
 					},
 					InstagramStory: "Story Instagram",
@@ -246,10 +357,52 @@ export const fr = {
 					Other: "Autre"
 				}
 			}
-		}
+		},
+		Organization: {
+			Popup: {
+				Website: "Site internet",
+				Select: "Séléctionner"
+			},
+		},
 	},
 	Report: {
-		Title: "Sélectionnez le type de signalement à effectuer ci-dessous"
+		Screen: "Urgences & Signalements",
+		LostPetDescription: "Vous avez perdu votre animal ou souhaitez signaler une disparition ?",
+		FoundPetDescription: "Vous avez trouvé un animal errant, blessé ou en danger ?",
+		DeadPetDescription: "Vous avez trouvé un animal décédé ?",
+		AccessContactInfos: {
+			ContactOwner: "Contacter le propriétaire",
+			ContactAuthor: "Contacter l'auteur de l'annonce",
+			ShowInfos: "Afficher les informations",
+			ShowInfosDescription: (mode: "access" | "share") => `En continuant, vous acceptez que pour éviter les dérives, l'accès aux informations ${mode == "access" ? "de contact du propriétaire" : "de partage"} soit enregistré, et consultable par l'auteur de l'annonce.`,
+			Title: "Informations de contact",
+			Description: "Voici le numéro de téléphone de l'auteur de l'annonce :",
+			Copied: "copié"
+		},
+		ViewWhoAccessed: {
+			Title: "Voir qui a consulté mon numéro",
+			NoOneAccessed: "Personne n'a affiché à votre numéro.",
+			TheyAccessed: "Ces personnes ont consulté votre numéro",
+			AccessedNumber: (time_ago: string) =>`a affiché votre numéro ${time_ago}`,
+			SharedReport: (time_ago: string) => `a partagé l'annonce ${time_ago}`
+		},
+		ContactInfos: {
+			Title: "Contact",
+			ShowMyNumber: "Afficher mon numéro lors du partage de l'annonce ?",
+			ChooseOtherMethod: "Choisir un autre moyen de contact à afficher lors du partage de l'annonce",
+			[contact_method.PHONE]: {
+				name: "Téléphone",
+				addTitle: "Ajoutez votre numéro de téléphone",
+			},
+			[contact_method.MAIL]: {
+				name: "Adresse mail",
+				addTitle: "Ajoutez votre adresse mail",
+			},
+			[contact_method.INSTAGRAM]: {
+				name: "Instagram",
+				addTitle: "Ajoutez votre @ instagram",
+			}
+		},
 	},
 	Discover: {
 		Title: "Découvrir",
@@ -368,7 +521,7 @@ export const fr = {
 					GoToHistory: "Notifications reçues précedemment",
 					RingTypes: {
 						LostPet: "🐶 perdu à proximité !",
-						HurtPet:  "🐱 blessé à proximité !",
+						HurtPet: "🐱 blessé à proximité !",
 						OwnAdsUpdate: "Votre annonce à été publiée !",
 						News: "Nouvelle version disponible !",
 						Funding: "Lancement d'une collecte de dons !",
@@ -397,39 +550,101 @@ export const fr = {
 					reportsAccess: "Vous pouvez accéder à ces annonces à tout moment.",
 					noSavedReport: "Aucune annonce sauvegardée pour le moment."
 				},
+				AccountScreen: {
+					Title: "Compte",
+					MyNumber: "Mon numéro",
+				},
 			}
 		}
+	},
+	Pro: {
+		Onboarding: {
+			FormTitle: (org_name: string) => `Rejoindre l'équipe Animalert de ${org_name}`,
+			FormSubmittedTitle: (user_name: string) => `C'est bon pour nous ${user_name} !`,
+			CompleteForm: "Veuillez compléter les informations ci-dessous",
+			ProMail: "Adresse Mail Professionelle",
+			FormSend: "Formulare envoyé !",
+			FormConfirmation: (org_name?: string) => `Votre demande d'accès a bien été transmise ${org_name ? `à ${org_name}` : ""} ! Vous recevrez une notification quand ils auront acceptés votre demande :)`,
+			InvalidLink: "Lien invalide",
+			InvalidLinkDescription: "Il semblerait que votre lien d'invitation soit invalide, si l'erreur persiste n'hésitez pas a contacter votre organisation.",
+			EnablePro: "Activer mon accès",
+			SendForm: "Envoyer"
+		},
+		Dashboard: {
+			Hello: (user_name: string) => `Bonjour ${user_name}`,
+			Staff: "Mes effectifs",
+			Manager: (plural: boolean) => `Manager${plural ? "s" : ""}`,
+			Agent: (plural: boolean) => `Agent${plural ? "s" : ""}`,
+			InviteMember: "inviter un membre",
+			NoValidationWaiting: (mode: "agent" | "manager" | "both") => `Aucun ${mode == "manager" || mode == "both" ? "manager" : ""}${mode == "both" ? " ou" : ""}${mode == "agent" || mode == "both" ? " agent" : ""} en attente de validation.`,
+			RoleWaitingValidation: (role: string) => `${role} en attente de validation`, // ex role: Agents
+			RoleAcceptedBy: (role: string, user_name: string) => `${role} acceptés par ${user_name}`,
+			NoRoleAccepted: (role: string, user_name?: string) => `Aucun ${role} accepté${user_name ? `par ${user_name}` : ""}.`,
+			MyOrganization: "Mon organisation",
+			Show: "afficher",
+			EditTitle: "Modifications",
+			EditDescription: "Pour toute modification des informations de l'organisation veuillez contacter Animalert par mail : contact@animalert.app",
+			Agents: {
+				LiveReports: (own_reports: boolean) => `${own_reports ? "Mes a" : "A"}nnonces en cours`,
+				EverythingDone: "Toutes les annonces ont déjà été traitées !",
+				AvailableReports: "Annonces a traiter"
+			},
+		},
+		InviteAgents: {
+			Title: "Inviter des agents",
+			InviteAgentsOrManagersTitle: (and_managers: boolean) => `Inviter un agent${and_managers ? " ou un manager" : ""}`,
+			InviteAgentsOrManagersDescription: (and_managers: boolean) => `Vous pouvez copier le lien ci-dessous permettant d'inviter un agent${and_managers ? " ou un manager" : ""} à rejoindre votre équipe.`,
+			LinkFor: (role: string) => `Lien pour les ${role}`,
+			CopyLink: "Copier le lien",
+			Warning: "Attention",
+			WarningDescription: "Il est possible que des personnes extérieures à votre organisation tentent de la rejoindre, vérifiez bien les numéros de téléphone des profils lorsqu'ils rejoignent."
+		},
+		AgentProfile: {
+			ProfileOf: (user_name: string) => `Profil de ${user_name}`,
+			FirstName: "Prénom",
+			LastName: "Nom",
+			JoinedAt: "À rejoint",
+			Revoke: "Révoquer l'accès",
+			AskedAt: "Accès demandé",
+			Accept: "accepter",
+			Deny: "refuser"
+		},
+		Organizations: {
+			SearchingForPartners: "Recherche de partenaires d'Animalert en cours...",
+			NoPartners: "Aucun partenaire d'Animalert trouvé à proximité.",
+			NoMorePartners: "Tous les partenaires d'Animalert à proximité sont ci-dessus"
+		},
 	},
 	Notifications: {
 		AppUpdate: {
 			title: "Nouvelle version disponible !",
 			body: (version: string) => `Mettez l'application à jour pour bénéficier de la version ${version} !`
 		},
-		PetLostAround: {
-			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} perdu${is_male ? "" : "e"} à proximité !`,
-			body: (pet_name: string, is_male: boolean) => `${pet_name} a été déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} à proximité de vous, ouvrez l'œil !`
-		},
 		LostPetFound: {
 			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} retrouvé${is_male ? "" : "e"} !`,
 			body: (pet_name: string, is_male: boolean) => `${pet_name} a été retrouvé${is_male ? "" : "e"} aujourd'hui par ses propriétaires :)`
 		},
-		NewPetReport: {
+		NewLostPetReport: {
 			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} !`,
 			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} à proximité de ${
 				placeID == "user" ? "vous" : `${place_name}`
 			}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
 		},
-		PetFoundAround: {
+		NewFoundPetReport: {
 			title: (specie: string) => `${getEmoji(specie)} trouvé.e à proximité !`,
 			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré.e trouvé.e ${is_injured ? "et blessé.e" : ""} à proximité de ${placeID == "user" ? "vous" : `${place_name}`}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
+		},
+		NewDeadPetReport: {
+			title: "Animal déclaré décédé",
+			body: (pet_name: string, day: string, hour: string) => `${pet_name} a été déclaré décédé le ${day} à ${hour}, à vous de prendre en charge l'annonce.`
 		},
 		PetFoundNowSafe: {
 			title: (pet_name: string) => `${pet_name} est en sécurité !`,
 			body: (pet_name: string) => `${pet_name} est désormais en sécurité, et c'est en partie grace à vous, merci pour votre vigilance !`
 		},
-		NewFoundPetReport: {
-			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} déclaré${is_male ? "" : "e"} trouvé${is_male ? "" : "e"} !`,
-			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré${is_male ? "" : "e"} trouvé${is_male ? "" : "e"} à proximité de ${placeID == "user" ? "vous" : `${place_name}`}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
+		PetDeadAround: {
+			title: (specie: string) => `${getEmoji(specie)} décédé trouvé.e à proximité`,
+			body: (pet_name: string, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré.e décédé à proximité de ${placeID == "user" ? "vous" : `${place_name}`}.`
 		},
 		ReportDenied: {
 			title: "Annonce refusée par un modérateur !",
@@ -459,9 +674,12 @@ export const fr = {
 		Yes: "Oui",
 		All: "Tous",
 		You: "Vous",
+		Next: "Suivant",
 		Error: "Erreur",
 		Cancel: "Annuler",
 		Confirm: "Confirmer",
+		LoadMore: "Charger plus",
+		PressLoadMore: "Cliquez sur « Charger plus » pour charger les éléments.",
 		Apply: "Appliquer",
 		Close: "Fermer",
 		ErrorOccuredPeaseRetry: "Une erreur est survenue, veuillez réessayer.",

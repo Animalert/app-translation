@@ -24,11 +24,12 @@ translations/
 
 ## ✍️ Translation Guidelines
 
-- ✔ **Keep the keys unchanged**; only translate the values.
-- ✔ **Keep the keys in the same order**; thank you for understanding.
-- ✔ **Keep the functions parameters unchanged**; only translate the values.
-- ✔ **Maintain spaces and punctuation**: if a source string ends with a space ("foo "), **the space must be preserved**. If you think it’s a mistake, open an issue.
-- ✔ **Use the same tone and register** as the French version.
+- ✔ **Keep the keys unchanged**: only translate the values.
+- ✔ **Keep the keys in the same order**: thank you for understanding.
+- ✔ **Keep the functions parameters unchanged**: only translate the values, if a parameter is unused you can rename it from `parameter` to `_parameter` to show this is intentional.
+- ✔ **Keep type of the values unchanged**: ex: `Foo: () => "Bar",` stays this way for type safety even if the parameter is unused.
+- ✔ **Maintain spaces and punctuation**: if a source string ends with a space ex `foo ` do not become `foo`, **the space must be preserved**. If you think it’s a mistake, open an issue.
+- ✔ **Use the same tone and register** as the source (FR/EN) version.
 - ✔ **Preserve wordplays and nuances** as much as possible. If an adaptation is needed, add a comment in the file to explain the change.
 - ✔ **Feel free to use inclusive writing** 🧡
 

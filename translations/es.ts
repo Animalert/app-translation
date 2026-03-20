@@ -96,19 +96,15 @@ export const es = {
 				},
 				images_files: {
 					title: "Fotos",
-					content: "Debe añadir al menos una foto en gran formato de su mascota."
 				},
 				lat: {
-					title: "Ubicación",
-					content: "Debe añadir un lugar de desaparición para su mascota."
+					title: "Ubicación"
 				},
 				lng: {
 					title: "Ubicación",
-					content: "Debe añadir un lugar de desaparición para su mascota."
 				},
 				description: {
 					title: "Descripción",
-					content: "Debe añadir una descripción detallada de su mascota."
 				},
 				age: {
 					title: "Edad",
@@ -318,19 +314,9 @@ export const es = {
 			title: "¡Nueva versión disponible!",
 			body: (version: string) => `¡Actualiza la aplicación para beneficiarte de la versión ${version}!`
 		},
-		PetLostAround: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} perdid${is_male ? "o" : "a"} cerca de aquí!`,
-			body: (pet_name: string, is_male: boolean) => `¡${pet_name} ha sido declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"} cerca de aquí, ¡ojo!`
-		},
 		LostPetFound: {
 			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} encontrad${is_male ? "o" : "a"}!`,
 			body: (pet_name: string, is_male: boolean) => `${pet_name} ha sido encontrad${is_male ? "o" : "a"} hoy por sus proprietarios :)`
-		},
-		NewPetReport: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"}!`,
-			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} ha sido declarad${is_male ? "o" : "a"} perdid${is_male ? "o" : "a"} cerca de ${
-				placeID == "user" ? "usted" : `${place_name}`
-			}${placeID == "user" ? ", ¡ojo!" : ""}`
 		},
 		ReportDenied: {
 			title: "¡Anuncio rechazado por un moderador!",

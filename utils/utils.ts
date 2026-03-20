@@ -7,3 +7,8 @@ export const getEmoji = (specie: string) => {
 	return ("🐾");
 }
 
+export const Platform: {
+	OS: "android" | "ios";
+} = {
+	OS: "android"
+}
