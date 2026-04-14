@@ -1,6 +1,6 @@
-import { pet_status } from "../types/enums";
+import { contact_method, pet_specie, pet_status, share_format } from "../types/enums";
 import { userPlace } from "../types/types";
-import { getEmoji } from "../utils/utils";
+import { Platform } from "../utils/utils";
 
 export const en = {
 	AppNavigation: {
@@ -19,7 +19,7 @@ export const en = {
 				},
 				2: {
 					title: "Position unavailable",
-					message: "Unable to retrieve location. Please reload the app or contact support if the error persists."
+					message: `Animalert is unable to retrieve your location. This may be due to a weak GPS signal or a poor connection. ${Platform.OS === "android" ? "Have you enabled location services?" : ""}`
 				},
 				3: {
 					title: "Timeout error",
@@ -41,9 +41,7 @@ export const en = {
 			NoPetsAround: (report_type: string, place_id: userPlace["id"], place_name: string) => `No ${report_type}animals near to ${place_id == "user" ? "you" : place_name} !`,
 			ErrorSearchingPets: "An error occurred when searching for animals lost in the area.",
 			TryAgain: "Try again?",
-			AnyAnimalAround: (petsInRadius: number) => {
-				return (`${petsInRadius == 0 ? "No" : petsInRadius} ${(petsInRadius > 1) ? "pets" : "pets"} around`)
-			},
+			AnyAnimalAround: (petsInRadius: number) => (`${petsInRadius == 0 ? "No" : petsInRadius} ${(petsInRadius > 1) ? "pets" : "pets"} around`),
 			NearTo: (place_id: userPlace["id"], place_name?: string) => `near ${place_id == "user" ? "you" : place_name}`,
 			Filters: {
 				Title: "Filters",
@@ -56,17 +54,17 @@ export const en = {
 		},
 		AddFoundPet: {
 			PetNamePlaceholder: "Pet's specie",
-			TheAnimal: "the pet",
+			TheAnimal: "the animal",
 			FoundDate: "Pet's found date"
 		},
 		AddLostPet: {
 			AdUploadError: "An error occurred while uploading the report, please try again",
 			PetAddPpButton: "Pick an image",
 			PetNamePlaceholder: "Pet name",
-			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choose ${x}/${maxPics} pictures of ${petName ? petName : "your pet"}.`,
+			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choose ${x}/${maxPics} pictures of ${petName || "your pet"}.`,
 			AddPicturesButton: "Add pictures",
 			PetDescriptionPlaceholder: "Pet detailed description goes here...",
-			AddLostPlace: (petName: string) => `Add the place where ${petName ? petName : "your pet"} disappeared.`,
+			AddLostPlace: (petName: string) => `Add the place where ${petName || "your pet"} disappeared.`,
 			AddFoundPlace: () => "Add the location where you found the animal.",
 			EditPlace: "Edit place",
 			EditReport: "Edit my report",
@@ -155,14 +153,14 @@ export const en = {
 					can_walk: "Can the animal walk?",
 					is_awake: "Is the animal awake?",
 					is_injured: "Is the animal injured?",
-					is_healthy: "Does the animal look healthy?\n(excluding injuries)",
+					is_healthy: "Does the animal seem healthy?\n(excluding injuries)",
 					is_agressive: "Is the animal aggressive?",
 					did_pickup: "Did you take the animal with you?",
-					bring_to_vet: "Are you going to take the animal to a vet?"
+					bring_to_vet: "Are you going to take the animal to a veterinarian?"
 				},
 				values: {
 					injured: "Injured",
-					safe: "Safe",
+					safe: "Unharmed",
 					cant_walk: "Unable to move",
 					agressive: "Aggressive"
 				}
@@ -209,16 +207,6 @@ export const en = {
 					is_owner: "Are you the pet owner?"
 				},
 				values: {
-					species: (specie: string) => {
-						switch (specie) {
-							case "cat":
-								return "cat";
-							case "dog":
-								return "dog";
-							default:
-								return (specie);
-						}
-					},
 					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "years" : "months"} old`,
 					genderMale: "male",
 					genderFemale: "female",
@@ -232,13 +220,16 @@ export const en = {
 				ShareButton: "Share",
 				Title: "Share the report",
 				Description: (pet_name?: string) => `Every share can help ${pet_name ? `find ${pet_name}` : "this pet"}, customize the poster to share below.`,
+				FormatPrefix: "Format:",
 				Format: {
-					story: "Poster / story format"
+					[share_format.POSTER_STORY]: "poster / story"
 				},
 				Poster: {
 					Default: {
+						LostSpecie: (lost: string, specie: string) => `${lost} ${specie}`, // ex: lost dog
+						FoundSpecie: (found: string, specie: string) => `${found} ${specie}`, // ex: found dog
 						HelpUsFind: (pet_name: string) => `Please help us find ${pet_name}`,
-						ContactTitle: "Any information? Please contact:",
+						ContactTitle: "Any information? Please contact:",
 						BeNotified: (pet_name: string, _is_male: boolean) => `Be notified when ${pet_name} is found with Animalert`
 					},
 					InstagramStory: "Instagram Story",
@@ -249,7 +240,57 @@ export const en = {
 		}
 	},
 	Report: {
-		Title: "Select the type of report to be made below"
+		AccessContactInfos: {
+			ContactOwner: "Contact the owner",
+			ShowInfos: "Show the informations",
+			ShowInfosDescription: (mode: "access" | "share") => `By continuing, you agree that in order to prevent abuse, access to the ${mode == "access" ? "owner's contact" : "share"} information will be recorded and viewable by the report's author.`,
+			Title: "Contact informations",
+			Description: "Here is the report's author phone number :",
+			Copied: "copied"
+		},
+		ViewWhoAccessed: {
+			Title: "See who accessed my number",
+			NoOneAccessed: "No one has accessed your number.",
+			TheyAccessed: "These people accessed your number",
+			AccessedNumber: (time_ago: string) => `accessed your number ${time_ago}`,
+			SharedReport: (time_ago: string) => `shared the report ${time_ago}`
+		},
+		ContactInfos: {
+			[contact_method.PHONE]: {
+				name: "Phone",
+				addTitle: "Add your phone number",
+			},
+			[contact_method.MAIL]: {
+				name: "Email",
+				addTitle: "Add your email address",
+			},
+			[contact_method.INSTAGRAM]: {
+				name: "Instagram",
+				addTitle: "Add your instagram @",
+			}
+		},
+		Species: {
+			[pet_specie.NONE]: () => "Select a species",
+
+			[pet_specie.CAT]: () => "Cat",
+			[pet_specie.DOG]: () => "Dog",
+			[pet_specie.BIRD]: () => "Bird",
+			[pet_specie.RABBIT]: () => "Rabbit",
+
+			[pet_specie.TURTLE]: () => "Turtle",
+			[pet_specie.HAMSTER]: () => "Hamster",
+			[pet_specie.FERRET]: () => "Ferret",
+			[pet_specie.REPTILE]: () => "Reptile",
+			[pet_specie.SNAKE]: () => "Snake",
+
+			[pet_specie.POULTRY]: (is_male?: boolean) => is_male ? "Rooster" : "Hen",
+			[pet_specie.HORSE]: (is_male?: boolean) => is_male ? "Stallion" : "Mare",
+			[pet_specie.COW]: (is_male?: boolean) => is_male ? "Bull" : "Cow",
+			[pet_specie.SHEEP]: (is_male?: boolean) => is_male ? "Ram" : "Ewe",
+			[pet_specie.GOAT]: (is_male?: boolean) => is_male ? "Billy Goat" : "Nanny Goat",
+
+			[pet_specie.CUSTOM]: () => "Other (Specify)"
+		},
 	},
 	Discover: {
 		Title: "Discover",
@@ -324,12 +365,20 @@ export const en = {
 					langEmoji: "🇬🇧",
 					notif: "Notifications",
 					rateUs: "Rate the app",
+					gift: "Gift Animalert",
 					writeUs: "Write us",
 					bugReport: "Report a bug",
 					security: "Security & privacy",
 					thanks: "Acknowledgements",
 					privacy: "Privacy Policy",
 					tos: "Terms of Service"
+				},
+				GiftScreen: {
+					Title: "Share Animalert\nwith a friend",
+					Thanks: "Thanks for sharing Animalert!",
+					NotSharing: "I don't want to share Animalert",
+					ThanksAgain: "Thanks for your support <3",
+					ShareMessage: "Here's a link to download Animalert, the app that helps pets I was telling you about! 🐶"
 				},
 				WriteUsScreen: {
 					OverScrollText: "Thanks in advance for your message 😻",
@@ -368,7 +417,7 @@ export const en = {
 					GoToHistory: "Previously received notifications",
 					RingTypes: {
 						LostPet: "lost 🐶 nearby!",
-						HurtPet:  "injured 🐱 nearby!",
+						HurtPet: "injured 🐱 nearby!",
 						OwnAdsUpdate: "Your report has been published!",
 						News: "New version now available!",
 						Funding: "Launch of a fund-raising campaign!",
@@ -379,7 +428,11 @@ export const en = {
 					title: "Past notifications",
 					OverScrollText: "we never spam :)",
 					NoNotifHistory: "No notification received",
-					SendAt: (date: string) => `Sent on ${date} at `
+					SendAt: (date: string) => `Sent on ${date} at `,
+					NotifElement: {
+						title: "Information",
+						description: "This notification is for informational purposes and does not have an associated page."
+					}
 				},
 				LanguageScreen: {
 					title: "Language",
@@ -397,6 +450,10 @@ export const en = {
 					reportsAccess: "You can have access to these reports at any time.",
 					noSavedReport: "No reports saved at the moment."
 				},
+				AccountScreen: {
+					Title: "Account",
+					MyNumber: "My number",
+				},
 			}
 		}
 	},
@@ -406,30 +463,22 @@ export const en = {
 			body: (version: string) => `Update the application to enjoy version ${version}!`
 		},
 		LostPetFound: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} recovered!`,
+			title: (pet_emoji: string, _is_male: boolean) => `${pet_emoji} recovered!`,
 			body: (pet_name: string, _is_male: boolean) => `${pet_name} was reunited with her owners today :)`
 		},
-		PetLostAround: {
-			title: (_specie: string, _is_male: boolean) => `lost nearby!`,
-			body: (pet_name: string, _is_male: boolean) => `${pet_name} was reported lost near you, keep an eye out!`,
-		},
-		NewPetReport: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} reported lost!`,
+		NewLostPetReport: {
+			title: (pet_emoji: string, _is_male: boolean, placeID: userPlace["id"]) => `${pet_emoji} reported lost ${placeID == "user" ? "nearby" : ""}!`,
 			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} has been reported lost near ${
 				placeID == "user" ? "you" : `${place_name}`
 			}${placeID == "user" ? ", keep an eye out" : ""}!`
 		},
-		PetFoundAround: {
-			title: (specie: string) => `${getEmoji(specie)} found nearby!`,
+		NewFoundPetReport: {
+			title: (pet_emoji: string) => `${pet_emoji} found nearby!`,
 			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} was reported found ${is_injured ? "and injured" : ""} near ${placeID == "user" ? "you" : `${place_name}`}${placeID == "user" ? ", keep an eye out" : ""} !`
 		},
 		PetFoundNowSafe: {
 			title: (pet_name: string) => `${pet_name} is safe!`,
 			body: (pet_name: string) => `${pet_name} is now safe, and it's partially thanks to you. Thank you for your vigilance!`
-		},
-		NewFoundPetReport: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} reported found!`,
-			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} was reported found near ${placeID == "user" ? "you" : `${place_name}`}${placeID == "user" ? ", keep an eye out" : ""} !`
 		},
 		ReportDenied: {
 			title: "Report denied by a moderator!",
@@ -468,7 +517,7 @@ export const en = {
 		CantLoadImage: "the image could not be loaded",
 		PleaseWait: "please wait",
 		Now: "now",
-		TimeAgo: (time_amount: string) => `${time_amount} ago`,
+		TimeAgo: (time_amount: string) => `${time_amount} ago`,
 		Day: "day",
 		Days: "days"
 	},

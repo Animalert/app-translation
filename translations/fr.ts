@@ -1,6 +1,6 @@
-import { contact_method, pet_report_steps, pet_status } from "../types/enums";
+import { contact_method, pet_report_steps, pet_specie, pet_status, share_color, share_format, share_template } from "../types/enums";
 import { userPlace } from "../types/types";
-import { getEmoji, Platform } from "../utils/utils";
+import { Platform } from "../utils/utils";
 
 export const fr = {
 	AppNavigation: {
@@ -105,7 +105,7 @@ export const fr = {
 			PetNamePlaceholder: "Nom de votre animal",
 			ChooseXPicsOfPet: (x: number, maxPics: number, petName: string) => `Choisissez ${x}/${maxPics} photos de ${petName || "votre animal"}.`,
 			AddPicturesButton: "Ajouter des photos",
-			PetDescriptionPlaceholder: "Description détaillée de votre animal...",
+			PetDescriptionPlaceholder: "Secteur de recherche, précisions sur la perte, comment approcher votre animal, ajoutez ici toute information pertinente.",
 			AddLostPlace: (petName?: string) => `Ajouter le lieu de disparition de ${petName || "l'animal"}.`,
 			AddFoundPlace: () => "Ajouter le lieu où vous avez trouvé l'animal.",
 			EditPlace: "Modifier le lieu",
@@ -117,6 +117,8 @@ export const fr = {
 			AdDeletedSuccessfully: "L'annonce a bien été supprimée.",
 			AdDeleteError: "Une erreur est survenue lors de la suppression de l'annonce, veuillez réessayer",
 			LostDate: "Date de disparition",
+			StreetReport: "Affiche trouvée dans la rue ?",
+			StreetReportDescription: "Sans lien avec le propriétaire, merci d'indiquer ses coordonnées en description.\n\nNos modérateurs feront le relais en protégeant votre anonymat.\n\nComplétez les informations connues ou ignorez les étapes si besoin",
 			SpeciePlaceholder: "chat, chien",
 			AgePlaceholder: "4 ans",
 			CloseReport: {
@@ -174,8 +176,7 @@ export const fr = {
 					content: (found?: boolean) => `Vous devez ajouter ${found ? "l'emplacement auquel vous avez trouvé l'" : "un lieu de disparition pour votre "}animal.`,
 				},
 				description: {
-					title: "Description",
-					foundTitle: "Informations complémentaires",
+					title: "Informations complémentaires",
 					content: (found?: boolean) => `Vous devez ajouter ${found ? "du contexte pour nous aider a comprendre la situation" : "une description détaillée de votre animal"}.`
 				},
 				age: {
@@ -318,31 +319,37 @@ export const fr = {
 					is_owner: "Êtes-vous le propriétaire de l'animal ?"
 				},
 				values: {
-					species: (specie: string) => {
-						switch (specie) {
-							case "cat":
-								return "chat";
-							case "dog":
-								return "chien";
-							default:
-								return (specie);
-						}
-					},
-					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "ans" : "mois"}`,
+					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? `an${age > 1 ? "s" : ""}` : "mois"}`,
 					genderMale: "mâle",
 					genderFemale: "femelle",
 				}
 			},
 			YouWillBeNotified: (pet_name: string, is_male: boolean) => `Vous serez informé.e quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
 			NotifyMe: (pet_name: string, is_male: boolean) => `Me prévenir quand ${pet_name} sera retrouvé${is_male ? "" : "e"}`,
-			IFoundPet: (pet_name: string) => `J'ai retrouvé.e ${pet_name}`,
+			IFoundPet: (pet_name: string) => `J'ai retrouvé ${pet_name}`,
 			EditModeWindowTitle: "Aperçu de mon annonce",
 			ShareReport: {
 				ShareButton: "Partager",
 				Title: "Partager l'annonce",
-				Description: (pet_name?: string) => `Chaque partage peut aider ${pet_name ? `à retrouver ${pet_name}` : "cet animal"}, personnalisez ci-dessous l'affiche à partager.`,
+				Steps: {
+					CreateTitle: "1. Personnalisez l'affiche",
+					CreateDescription: "Personnalisez votre affiche avec les différents réglage ci-dessous, vous pouvez exporter plusieurs affiches.",
+					Prefix2: "2.",
+				},
+				Description: (pet_name?: string) => `Chaque partage peut aider ${pet_name ? `à retrouver ${pet_name}` : "cet animal"}.`,
+				FormatPrefix: "Format:",
 				Format: {
-					story: "Format affiche / story"
+					[share_format.POSTER_STORY]: "affiche / story",
+					[share_format.POST_SQUARE]: "carré / post",
+				},
+				ChoosenTheme: "Modèle choisi :",
+				Theme: {
+					[share_template.ANIMALERT]: "Orange Signature",
+					[share_template.URGENCY]: "Rouge Alerte",
+				},
+				Color: {
+					[share_color.COLOR]: "En Couleur",
+					[share_color.BLACK_AND_WHITE]: "Noir & Blanc",
 				},
 				Poster: {
 					Default: {
@@ -354,7 +361,18 @@ export const fr = {
 					},
 					InstagramStory: "Story Instagram",
 					FacebookStory: "Story Facebook",
-					Other: "Autre"
+					WhatsApp: "Whatsapp",
+					iMessage: "iMessage",
+					Message: "Message",
+					CopyLink: "Copier le lien",
+					Copied: "Copié !",
+					CopiedDescription: "Lien copié dans le presse-papiers.",
+					Download: "Télécharger",
+					Print: "Imprimer",
+					Other: "Partager ailleurs",
+					ShareLostTextContent: (pet_name: string, is_male: boolean) => `${pet_name} a été perdu${is_male ? "" : "e"} et on a besoin de toi pour nous aider à le retrouver ! 🐾\n\nPeux-tu vérifier si tu reconnais ${pet_name} ?\n👇 Photo et lieu ici : `,
+					ShareFoundTextContent: (guess_type: string) => `Un ${guess_type} a été trouvé et on a besoin de toi pour l'aider à rentrer chez lui ! 🏠🐾\n\nPeux-tu vérifier si tu reconnais ce ${guess_type} ou si c'est celui d'un voisin ?\n👇 Photo et lieu ici : `,
+					ShareError: "Possédez-vous l'application ?"
 				}
 			}
 		},
@@ -370,6 +388,15 @@ export const fr = {
 		LostPetDescription: "Vous avez perdu votre animal ou souhaitez signaler une disparition ?",
 		FoundPetDescription: "Vous avez trouvé un animal errant, blessé ou en danger ?",
 		DeadPetDescription: "Vous avez trouvé un animal décédé ?",
+		ReportCard: {
+			WaitingApproval: "En attente de validation",
+			Approved: "Annonce en ligne",
+			Denied: "Annonce refusée",
+			Deleted: "Annonce supprimée",
+			Archived: "Annonce archivée",
+			Found: (pet_name: string, is_male?: boolean) => `${pet_name} retrouvé${is_male ? "" : "e"}`,
+			Safe: (pet_name: string) => `${pet_name} en sécurité`,
+		},
 		AccessContactInfos: {
 			ContactOwner: "Contacter le propriétaire",
 			ContactAuthor: "Contacter l'auteur de l'annonce",
@@ -403,6 +430,28 @@ export const fr = {
 				addTitle: "Ajoutez votre @ instagram",
 			}
 		},
+		Species: {
+			[pet_specie.NONE]: () => "Sélectionner une espèce",
+
+			[pet_specie.CAT]: (is_male?: boolean) => is_male ? "Chat" : "Chatte",
+			[pet_specie.DOG]: (is_male?: boolean) => is_male ? "Chien" : "Chienne",
+			[pet_specie.BIRD]: () => "Oiseau",
+			[pet_specie.RABBIT]: (is_male?: boolean) => is_male ? "Lapin" : "Lapine",
+
+			[pet_specie.TURTLE]: () => "Tortue",
+			[pet_specie.HAMSTER]: () => "Hamster",
+			[pet_specie.FERRET]: (is_male?: boolean) => is_male ? "Furet" : "Furette",
+			[pet_specie.REPTILE]: () => "Reptile",
+			[pet_specie.SNAKE]: () => "Serpent",
+
+			[pet_specie.POULTRY]: (is_male?: boolean) => is_male ? "Coq" : "Poule",
+			[pet_specie.HORSE]: (is_male?: boolean) => is_male ? "Cheval" : "Jument",
+			[pet_specie.COW]: (is_male?: boolean) => is_male ? "Taureau" : "Vache",
+			[pet_specie.SHEEP]: (is_male?: boolean) => is_male ? "Bélier" : "Brebis",
+			[pet_specie.GOAT]: (is_male?: boolean) => is_male ? "Bouc" : "Chèvre",
+
+			[pet_specie.CUSTOM]: () => "Autre (Préciser)"
+		},
 	},
 	Discover: {
 		Title: "Découvrir",
@@ -427,6 +476,7 @@ export const fr = {
 		Screen: {
 			TitleAccount: "Compte",
 			MyAdsTitle: "Mes annonces",
+			ShowMore: "Afficher plus",
 			LogOut: "Se déconnecter",
 			SettingsBottomVersion: "version bêta",
 			LoadingMessage: "Chargement de vos annonces...",
@@ -466,7 +516,8 @@ export const fr = {
 				"code-expired": "Le code de vérification à expiré, veuillez recommencer.",
 				"missing-client-identifier": "Nous n'arrivons pas à valider l'intégrité de votre appareil, veuillez relancer l'application ou nous contacter.",
 				"popup-closed-by-user": "Le captcha à été annulé, veuillez réessayer",
-				"user-disabled": "Vous êtes banni de l'association Animalert et de ses différents services."
+				"user-disabled": "Vous êtes banni de l'association Animalert et de ses différents services.",
+				"network-request-failed": "Une erreur de connexion est survenue. Êtes-vous connecté à internet ?"
 			}
 		},
 		Settings: {
@@ -477,12 +528,20 @@ export const fr = {
 					langEmoji: "🇫🇷",
 					notif: "Notifications",
 					rateUs: "Noter l'app",
+					gift: "Offrir Animalert",
 					writeUs: "Nous écrire",
 					bugReport: "Signaler un bug",
 					security: "Sécurité et confidentialité",
 					thanks: "Remerciements",
 					privacy: "Politique de confidentialité",
 					tos: "Conditions d'utilisation"
+				},
+				GiftScreen: {
+					Title: "Partager Animalert\navec un ami",
+					Thanks: "Merci pour le partage !",
+					NotSharing: "Je ne veux pas partager Animalert",
+					ThanksAgain: "Merci pour votre soutien <3",
+					ShareMessage: "Voilà un lien pour télécharger Animalert, l'app qui permet d'aider les animaux dont je te parlais ! 🐶"
 				},
 				WriteUsScreen: {
 					OverScrollText: "Merci d'avance pour votre message 😻",
@@ -514,6 +573,15 @@ export const fr = {
 					Mail: "mail",
 					Thanks: "On vous remercie d'avance pour votre signalement, grâce à vos retours on peut améliorer l'application chaque jour"
 				},
+				AccessibilityScreen: {
+					Title: "Accessibilité",
+					IntroDescription: "Personnalisez l'affichage et les fonctionnalités pour une expérience adaptée à vos besoins.",
+					PrecisionText: "Par défaut l'application utise vos préférences systèmes.",
+					ResetPreferences: "Réinitialiser les préférences",
+					AccessibilityFeatures: {
+						reduced_motion: "Animations réduites",
+					},
+				},
 				NotificationsScreen: {
 					title: "Notifications",
 					OverScrollText: "Activez les toutes !",
@@ -532,7 +600,11 @@ export const fr = {
 					title: "Notifications reçues",
 					OverScrollText: "jamais de spam :)",
 					NoNotifHistory: "Aucune notification reçue",
-					SendAt: (date: string) => `Envoyée le ${date} à `
+					SendAt: (date: string) => `Envoyée le ${date} à `,
+					NotifElement: {
+						title: "Information",
+						description: "Cette notification est purement informative et n'est associée à aucune page."
+					},
 				},
 				LanguageScreen: {
 					title: "Langue",
@@ -621,17 +693,17 @@ export const fr = {
 			body: (version: string) => `Mettez l'application à jour pour bénéficier de la version ${version} !`
 		},
 		LostPetFound: {
-			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} retrouvé${is_male ? "" : "e"} !`,
+			title: (pet_emoji: string, is_male: boolean) => `${pet_emoji} retrouvé${is_male ? "" : "e"} !`,
 			body: (pet_name: string, is_male: boolean) => `${pet_name} a été retrouvé${is_male ? "" : "e"} aujourd'hui par ses propriétaires :)`
 		},
 		NewLostPetReport: {
-			title: (specie: string, is_male: boolean) => `${getEmoji(specie)} déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} !`,
+			title: (pet_emoji: string, is_male: boolean) => `${pet_emoji} déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} !`,
 			body: (pet_name: string, is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré${is_male ? "" : "e"} perdu${is_male ? "" : "e"} à proximité de ${
 				placeID == "user" ? "vous" : `${place_name}`
 			}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
 		},
 		NewFoundPetReport: {
-			title: (specie: string) => `${getEmoji(specie)} trouvé.e à proximité !`,
+			title: (pet_emoji: string) => `${pet_emoji} trouvé.e à proximité !`,
 			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré.e trouvé.e ${is_injured ? "et blessé.e" : ""} à proximité de ${placeID == "user" ? "vous" : `${place_name}`}${placeID == "user" ? ", ouvrez l'œil" : ""} !`
 		},
 		NewDeadPetReport: {
@@ -643,7 +715,7 @@ export const fr = {
 			body: (pet_name: string) => `${pet_name} est désormais en sécurité, et c'est en partie grace à vous, merci pour votre vigilance !`
 		},
 		PetDeadAround: {
-			title: (specie: string) => `${getEmoji(specie)} décédé trouvé.e à proximité`,
+			title: (pet_emoji: string) => `${pet_emoji} décédé trouvé.e à proximité`,
 			body: (pet_name: string, placeID: userPlace["id"], place_name: string) => `${pet_name} a été déclaré.e décédé à proximité de ${placeID == "user" ? "vous" : `${place_name}`}.`
 		},
 		ReportDenied: {

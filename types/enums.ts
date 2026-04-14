@@ -18,3 +18,37 @@ export enum contact_method {
 	MAIL,
 	INSTAGRAM
 }
+
+export enum share_format {
+	POSTER_STORY = 1,
+	POST_SQUARE
+}
+
+export enum share_color {
+	COLOR = 1,
+	BLACK_AND_WHITE
+}
+
+export enum share_template {
+	ANIMALERT = 1,
+	URGENCY
+}
+
+export enum pet_specie {
+	NONE = -1,
+	CUSTOM = 0,
+	CAT,
+	DOG,
+	BIRD,
+	COW,
+	TURTLE,
+	RABBIT,
+	HAMSTER,
+	SHEEP,
+	HORSE,
+	GOAT,
+	FERRET,
+	REPTILE,
+	SNAKE,
+	POULTRY
+}
