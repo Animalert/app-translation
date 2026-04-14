@@ -1,6 +1,4 @@
 import { pet_status } from "../types/enums";
-import { userPlace } from "../types/types";
-import { getEmoji } from "../utils/utils";
 
 export const es = {
 	AppNavigation: {
@@ -153,16 +151,6 @@ export const es = {
 					is_owner: "¿Es usted el propietario de la mascota?"
 				},
 				values: {
-					species: (specie: string) => {
-						switch (specie) {
-							case "cat":
-								return "gato";
-							case "dog":
-								return "perro";
-							default:
-								return (specie);
-						}
-					},
 					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "años" : "meses"}`,
 					genderMale: "macho",
 					genderFemale: "hembra",
@@ -315,7 +303,7 @@ export const es = {
 			body: (version: string) => `¡Actualiza la aplicación para beneficiarte de la versión ${version}!`
 		},
 		LostPetFound: {
-			title: (specie: string, is_male: boolean) => `¡${getEmoji(specie)} encontrad${is_male ? "o" : "a"}!`,
+			title: (pet_emoji: string, is_male: boolean) => `¡${pet_emoji} encontrad${is_male ? "o" : "a"}!`,
 			body: (pet_name: string, is_male: boolean) => `${pet_name} ha sido encontrad${is_male ? "o" : "a"} hoy por sus proprietarios :)`
 		},
 		ReportDenied: {

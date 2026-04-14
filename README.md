@@ -23,12 +23,13 @@ This repository is in **English**, as it is the source language for all translat
 Coverage (percentage): percentage of translation completeness compared to the reference language.
 Verified (boolean): full proofreading for spelling and grammar accuracy.
 
-| Language | Coverage | Verified | Comments |
-|--------|------------|----------|-------------|
-| 🇬🇧 English (source) | 100% | ❌ | Reference language |
-| 🇫🇷 Français (source) | 100% | ❌ | Langue de référence |
-| 🇪🇸 Español | 93.3% | ❌ | Translated from french by [@Dboire9](https://github.com/Dboire9/) |
-| 🇮🇹 Italiano | 100% | ❌ | Translated from english && french by [@leeoocca](https://github.com/leeoocca/) |
+| Language | Coverage | Verified | App Version | Comments |
+|--------|------------|----------|-------------|-------------|
+| 🇬🇧 English (source) | 92.1% | ❌ | 0.8.1 (LTS) | Reference language (missing translation && verification incoming) |
+| 🇫🇷 Français (source) | 100% | ❌ | 0.8.1 (LTS) | Langue de référence |
+| 🇪🇸 Español | 92% | ❌ | 0.7.1 | Translated from french by [@Dboire9](https://github.com/Dboire9/) |
+| 🇮🇹 Italiano | 91% | ❌ | 0.7.2 | Translated from english && french by [@leeoocca](https://github.com/leeoocca/) |
+| 🇵🇱 Polski | 95.8% | ❌ | 0.8.0 | Translated french by [@Anastasia](https://www.linkedin.com/in/anastasiabylina/) |
 
 ### 📜 Widget Translation Status
 

@@ -1,6 +1,5 @@
-import { pet_status } from "../types/enums";
+import { pet_status, share_format } from "../types/enums";
 import { userPlace } from "../types/types";
-import { getEmoji } from "../utils/utils";
 
 
 export const it = {
@@ -209,16 +208,6 @@ export const it = {
 					is_owner: "Sei il proprietario dell'animale?"
 				},
 				values: {
-					species: (specie: string) => {
-						switch (specie) {
-								case "cat":
-										return "gatto";
-								case "dog":
-										return "cane";
-								default:
-										return (specie);
-						}
-					},
 					age: (age: number, is_years: boolean) => `${Math.abs(age)} ${is_years ? "anni" : "mesi"}`,
 					genderMale: "maschio",
 					genderFemale: "femmina",
@@ -232,8 +221,9 @@ export const it = {
 				ShareButton: "Condividi",
 				Title: "Condividi la segnalazione",
 				Description: (pet_name?: string) => `Ogni condivisione può aiutare ${pet_name ? `a trovare ${pet_name}` : "questo animale"}: personalizza il poster da condividere qui sotto.`,
+				FormatPrefix: "Formato:",
 				Format: {
-					story: "Formato poster/storia"
+					[share_format.POSTER_STORY]: "poster / storia",
 				},
 				Poster: {
 					Default: {
@@ -249,7 +239,7 @@ export const it = {
 		}
 	},
 	Report: {
-			Title: "Seleziona il tipo di segnalazione da effettuare qui sotto",
+
 	},
 	Discover: {
 			Title: "Scopri",
@@ -406,21 +396,21 @@ export const it = {
 			body: (version: string) => `Aggiorna l'app per usufruire della versione ${version}!`
 		},
 		LostPetFound: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} ritrovat${_is_male ? "o" : "a"}!`,
+			title: (pet_emoji: string, _is_male: boolean) => `${pet_emoji} ritrovat${_is_male ? "o" : "a"}!`,
 			body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato riunito" : "stata riunita"} oggi ai suoi proprietari :)`
 		},
 		PetLostAround: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} smarrit${_is_male ? "o" : "a"} nelle vicinanze!`,
+			title: (pet_emoji: string, _is_male: boolean) => `${pet_emoji} smarrit${_is_male ? "o" : "a"} nelle vicinanze!`,
 			body: (pet_name: string, _is_male: boolean) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come smarrit${_is_male ? "o" : "a"} vicino a te, fai attenzione!`,
 		},
 		NewPetReport: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalat${_is_male ? "o" : "a"} come smarrit${_is_male ? "o" : "a"}!`,
+			title: (pet_emoji: string, _is_male: boolean) => `${pet_emoji} segnalat${_is_male ? "o" : "a"} come smarrit${_is_male ? "o" : "a"}!`,
 			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "smarrito" : "smarrita"} ${
 				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
 			}${placeID == "user" ? ", fai attenzione" : ""}!`
 		},
 		PetFoundAround: {
-			title: (specie: string) => `${getEmoji(specie)} trovato nelle vicinanze!`,
+			title: (pet_emoji: string) => `${pet_emoji} trovato nelle vicinanze!`,
 			body: (pet_name: string, is_injured: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è stato segnalato come trovato${is_injured ? " e ferito" : ""} ${
 				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
 			}${placeID == "user" ? ", fai attenzione" : ""}!`
@@ -430,7 +420,7 @@ export const it = {
 			body: (pet_name: string) => `${pet_name} è ora al sicuro, e lo è in parte grazie a te. Grazie per la tua vigilanza!`
 		},
 		NewFoundPetReport: {
-			title: (specie: string, _is_male: boolean) => `${getEmoji(specie)} segnalat${_is_male ? "o" : "a"} come trovat${_is_male ? "o" : "a"}!`,
+			title: (pet_emoji: string, _is_male: boolean) => `${pet_emoji} segnalat${_is_male ? "o" : "a"} come trovat${_is_male ? "o" : "a"}!`,
 			body: (pet_name: string, _is_male: boolean, placeID: userPlace["id"], place_name: string) => `${pet_name} è ${_is_male ? "stato segnalato" : "stata segnalata"} come ${_is_male ? "trovato" : "trovata"} ${
 				placeID == "user" ? "vicino a te" : `nei pressi di ${place_name}`
 			}${placeID == "user" ? ", fai attenzione" : ""}!`
